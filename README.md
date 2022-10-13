@@ -1,4 +1,4 @@
-# Time App
+# Gig App v2
 
 This app is written using React and Typescript.
 
@@ -28,6 +28,8 @@ The Projects page lists all projects made by the user in a card format with the 
 This page is where the user may create projects. To create a project, the user needs to input a project name, description, and owner.
 
 #### Project
+
+---
 
 This page is the template that all projects will use.
 
