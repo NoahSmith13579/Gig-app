@@ -18,7 +18,7 @@ import Revenue from '../../../entities/Revenue';
 import Cost from '../../../entities/Cost';
 import { v4 as uuid } from 'uuid';
 import AddCostBox from './AddCostBox';
-import AddRevenueBox from '../../../components/projects/AddRevenueBox';
+import AddRevenueBox from './AddRevenueBox';
 import { toast } from 'react-toastify';
 import AddDayWorkedBox from './AddDateWorkedBox';
 import DayWorked from '../../../entities/DayWorked';

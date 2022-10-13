@@ -1,4 +1,3 @@
-//TODO fill this out
 const About: React.FC = () => {
     return (
         <div>

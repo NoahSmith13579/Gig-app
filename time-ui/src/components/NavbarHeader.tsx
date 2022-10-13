@@ -24,9 +24,6 @@ const NavbarHeader: React.FC = () => {
                     <li>
                         <a href='/about'>About</a>
                     </li>
-                    <li>
-                        <a href='/admin'>Admin</a>
-                    </li>
 
                     {loggedIn ? (
                         <>

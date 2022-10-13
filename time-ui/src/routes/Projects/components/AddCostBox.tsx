@@ -60,7 +60,7 @@ const AddCostBox: React.FC<AddCostBoxProps> = ({
                 validate={validateAmount}
             />
             <ValidatedDatePicker
-                label='Start Date'
+                label='Date'
                 value={cost.date}
                 onChange={(e) => onChange({ ...cost, date: e })}
                 validate={() => ''}

@@ -7,9 +7,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import { useAuth } from './contexts/AuthContext';
 import About from './routes/About';
 import ErrorPage404 from './routes/404';
-import Adminpage from './routes/Admin';
 
-//TODO make admin specific user gated
 const AppRoutes: React.FC = () => {
     const user = useAuth().authState.userid;
     return (
@@ -20,10 +18,6 @@ const AppRoutes: React.FC = () => {
                     <Route
                         path='/dash'
                         element={<Layout child={<Dashboard />} />}
-                    />
-                    <Route
-                        path='/Admin'
-                        element={<Layout child={<Adminpage />} />}
                     />
                 </Route>
 

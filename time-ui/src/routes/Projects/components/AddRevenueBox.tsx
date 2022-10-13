@@ -1,10 +1,10 @@
 import React from 'react';
-import Revenue from '../../entities/Revenue';
-import { notEmpty, notNegative } from '../../helpers/validationHelper';
-import CurrencyBox from '../CurrencyBox';
-import ValidatedCurrencyBox from '../ValidatedCurrencyBox';
-import ValidatedDatePicker from '../ValidatedDatePicker';
-import ValidatedTextbox from '../ValidatedTextbox';
+import Revenue from '../../../entities/Revenue';
+import { notEmpty, notNegative } from '../../../helpers/validationHelper';
+import CurrencyBox from '../../../components/CurrencyBox';
+import ValidatedCurrencyBox from '../../../components/ValidatedCurrencyBox';
+import ValidatedDatePicker from '../../../components/ValidatedDatePicker';
+import ValidatedTextbox from '../../../components/ValidatedTextbox';
 
 interface AddRevenueBoxProps {
     revenue: Revenue;
@@ -60,7 +60,7 @@ const AddRevenueBox: React.FC<AddRevenueBoxProps> = ({
                 validate={validateAmount}
             />
             <ValidatedDatePicker
-                label='Start Date'
+                label='Date'
                 value={revenue.date}
                 onChange={(e) => onChange({ ...revenue, date: e })}
                 validate={() => ''}
