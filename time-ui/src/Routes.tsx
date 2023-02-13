@@ -9,23 +9,21 @@ import About from './routes/About';
 import ErrorPage404 from './routes/404';
 
 const AppRoutes: React.FC = () => {
-    const user = useAuth().authState.userid;
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<ProtectedRoute user={user} />}>
-                    <Route path='/projects/*' element={<ProjectRoutes />} />
-                    <Route
-                        path='/dash'
-                        element={<Layout child={<Dashboard />} />}
-                    />
-                </Route>
+  const user = useAuth().authState.userid;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<ProtectedRoute user={user} />}>
+          <Route path='/projects/*' element={<ProjectRoutes />} />
+          <Route path='/dash' element={<Layout child={<Dashboard />} />} />
+        </Route>
 
-                <Route path='/about' element={<Layout child={<About />} />} />
-                <Route path='*' element={<Layout child={<ErrorPage404 />} />} />
-            </Routes>
-        </BrowserRouter>
-    );
+        <Route path='/about' element={<Layout child={<About />} />} />
+        <Route path='/' element={<Layout child={<About />} />} />
+        <Route path='*' element={<Layout child={<ErrorPage404 />} />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default AppRoutes;

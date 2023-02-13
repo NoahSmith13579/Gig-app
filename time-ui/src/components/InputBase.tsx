@@ -2,45 +2,48 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 
 interface InputBaseProps {
-    type: React.HTMLInputTypeAttribute;
-    label?: string;
-    value: string;
-    default?: string;
-    onChange(newVal: string): void;
-    error?: string;
-    style?: object;
+  type: React.HTMLInputTypeAttribute;
+  label?: string;
+  value: string;
+  default?: string;
+  onChange(newVal: string): void;
+  error?: string;
+  style?: object;
+  disabled?: boolean;
 }
 
 const InputBase: React.FC<InputBaseProps> = ({
-    type,
-    label,
-    value,
-    default: defaultValue,
-    onChange,
-    error,
-    style,
+  type,
+  label,
+  value,
+  default: defaultValue,
+  onChange,
+  error,
+  style,
+  disabled,
 }) => {
-    const [id] = React.useState(uuid());
+  const [id] = React.useState(uuid());
 
-    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        onChange(e.target.value);
-    };
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    onChange(e.target.value);
+  };
 
-    return (
-        <div className='input-group'>
-            {!!label && <label htmlFor={id}>{label}:</label>}
-            <input
-                className={!!error ? 'error' : ''}
-                id={id}
-                type={type}
-                onChange={handleChange}
-                value={value}
-                defaultValue={defaultValue}
-                style={style}
-            />
-            {!!error && <span className='error'>{error}</span>}
-        </div>
-    );
+  return (
+    <div className='input-group'>
+      {!!label && <label htmlFor={id}>{label}:</label>}
+      <input
+        className={!!error ? 'error' : ''}
+        id={id}
+        type={type}
+        onChange={handleChange}
+        value={value}
+        defaultValue={defaultValue}
+        style={style}
+        disabled={disabled}
+      />
+      {!!error && <span className='error'>{error}</span>}
+    </div>
+  );
 };
 
 export default InputBase;

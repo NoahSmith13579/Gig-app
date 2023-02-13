@@ -248,7 +248,7 @@ const ViewProject: React.FC = () => {
       {hasData && (
         <>
           <h2 className='mb-0'>{project.name}</h2>
-          <p className='subtitle p-0'>Owned by {project.owner}.</p>
+          <p className='subtitle p-0'>Owned by {project.owner}</p>
         </>
       )}
       {loading ? (
