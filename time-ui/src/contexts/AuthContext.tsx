@@ -70,7 +70,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   React.useEffect(() => {
     log(`Queued refresh for ${REFRESH_TIMEOUT}ms`);
-    let handle = setTimeout(() => {
+    let handle = setInterval(() => {
       if (handle === -1) return; // prevent noop. Cheap unsubscribe cop-out
       handleRefresh();
     }, REFRESH_TIMEOUT) as unknown as number;
