@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Project from '../../entities/Project';
-import { useAuth } from '../../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 interface ProjectsListProps {
   projects: Project[];
 }
 
 const ProjectsList: React.FC<ProjectsListProps> = ({ projects }) => {
-  const { authState } = useAuth();
-  const { userid } = authState;
+  const {
+    authState: { userid },
+  } = useContext(AuthContext);
   return (
     <div className='card'>
       <table>

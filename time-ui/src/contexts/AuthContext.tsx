@@ -150,7 +150,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const doGoogleLogin = (input: any) => {
-    log('loggin in');
+    log('logging in');
     handleLogin(input.access_token);
   };
 
