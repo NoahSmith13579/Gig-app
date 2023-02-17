@@ -1,9 +1,9 @@
-import React, { CSSProperties, MouseEventHandler } from 'react';
+import { CSSProperties, MouseEventHandler } from 'react';
 
 interface IconProps {
-    style?: CSSProperties;
-    classNames?: string;
-    onClick?: MouseEventHandler;
+  style?: CSSProperties;
+  classNames?: string;
+  onClick?: MouseEventHandler;
 }
 
 export default IconProps;

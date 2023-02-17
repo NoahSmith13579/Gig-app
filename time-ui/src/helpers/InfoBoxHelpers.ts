@@ -3,67 +3,67 @@ import DayWorked from '../entities/DayWorked';
 import Revenue from '../entities/Revenue';
 
 const calcTRev = (revenues: Revenue[]): number => {
-    const reducer = (acc: number, curr: Revenue) => acc + curr.amount;
+  const reducer = (acc: number, curr: Revenue) => acc + curr.amount;
 
-    const TotalRev = revenues.reduce(reducer, 0);
+  const TotalRev = revenues.reduce(reducer, 0);
 
-    return TotalRev;
+  return TotalRev;
 };
 
 const calcTCost = (costs: Cost[]): number => {
-    const reducer = (acc: number, curr: Cost) => acc + curr.amount;
+  const reducer = (acc: number, curr: Cost) => acc + curr.amount;
 
-    const TotalCost = costs.reduce(reducer, 0);
+  const TotalCost = costs.reduce(reducer, 0);
 
-    return TotalCost;
+  return TotalCost;
 };
 
 const calcProfit = (costs: Cost[], revenues: Revenue[]): number => {
-    const Profit = calcTRev(revenues) - calcTCost(costs);
+  const Profit = calcTRev(revenues) - calcTCost(costs);
 
-    return Profit;
+  return Profit;
 };
 
 const calcTTimeWorked = (daysWorked: DayWorked[]): number => {
-    const reducer = (acc: number, curr: DayWorked) => acc + curr.timeWorked;
+  const reducer = (acc: number, curr: DayWorked) => acc + curr.timeWorked;
 
-    const TotalTimeWorked = daysWorked.reduce(reducer, 0) / 3600;
+  const TotalTimeWorked = daysWorked.reduce(reducer, 0) / 3600;
 
-    return TotalTimeWorked;
+  return TotalTimeWorked;
 };
 
-const calcProfitPerHor = (
-    costs: Cost[],
-    revenues: Revenue[],
-    daysWorked: DayWorked[]
+const calcProfitPerHour = (
+  costs: Cost[],
+  revenues: Revenue[],
+  daysWorked: DayWorked[]
 ): number => {
-    const ProfitPerHour =
-        calcProfit(costs, revenues) / calcTTimeWorked(daysWorked);
+  const ProfitPerHour =
+    calcProfit(costs, revenues) / calcTTimeWorked(daysWorked);
 
-    return ProfitPerHour;
+  return ProfitPerHour;
 };
 
 const calcReturnOnInvestment = (costs: Cost[], revenues: Revenue[]): number => {
-    const Profit = calcProfit(costs, revenues);
-    const Cost = calcTCost(costs);
+  const Profit = calcProfit(costs, revenues);
+  const Cost = calcTCost(costs);
 
-    const ReturnOnInvestment = (Cost / Profit) * 100;
+  const ReturnOnInvestment = (Cost / Profit) * 100;
 
-    return ReturnOnInvestment;
+  return ReturnOnInvestment;
 };
 
 const conditionalFormattingIB = (func: number): string => {
-    const conditon = func >= 1 ? 'green' : 'red';
+  const conditon = func >= 1 ? 'green' : 'red';
 
-    return conditon;
+  return conditon;
 };
 
 export {
-    calcTRev,
-    calcTCost,
-    calcProfit,
-    calcTTimeWorked,
-    calcProfitPerHor,
-    calcReturnOnInvestment,
-    conditionalFormattingIB,
+  calcTRev,
+  calcTCost,
+  calcProfit,
+  calcTTimeWorked,
+  calcProfitPerHour,
+  calcReturnOnInvestment,
+  conditionalFormattingIB,
 };

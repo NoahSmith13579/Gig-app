@@ -15,6 +15,13 @@ interface AuthState {
   loggedIn: boolean;
   token: string | null;
 }
+interface Token {
+  email: string;
+  exp: number;
+  iat: number;
+  name: string;
+  sub: string;
+}
 
 interface AuthContextContainer {
   authState: AuthState;
@@ -41,9 +48,25 @@ const AuthContext = React.createContext<AuthContextContainer>({
   logout: () => {},
 });
 
-const REFRESH_TIMEOUT = 5 * 60 * 1000;
+const REFRESH_TIMEOUT = 2 * 60 * 1000;
 
 const useAuth = (): AuthContextContainer => React.useContext(AuthContext);
+
+const parseJwt = (token: string): Token => {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+
+  return JSON.parse(jsonPayload);
+};
 
 const getAuthHeaders = (
   token: string,
@@ -70,6 +93,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   React.useEffect(() => {
     log(`Queued refresh for ${REFRESH_TIMEOUT}ms`);
+    if (authState.token) {
+      const { exp } = parseJwt(authState.token);
+      if (Date.now() / 1000 > exp) {
+        setAuthState(getUnauthstate());
+      }
+    }
     let handle = setInterval(() => {
       if (handle === -1) return; // prevent noop. Cheap unsubscribe cop-out
       handleRefresh();

@@ -3,6 +3,8 @@ import Pagination from '../../../components/PaginationNav';
 import { dateFormatter } from '../../../helpers/dateHelper';
 import AddCostBox from './AddCostBox';
 
+//TODO: This makes AddRevenueBox redundant
+
 interface DataTableProps<T> {
   currentData: T[];
   handleRemove: Function;

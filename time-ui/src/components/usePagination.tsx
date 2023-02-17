@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Make like useData like "const [currentPage, currentData, pageCount, goToPage] = usePagination(inputArray, pageSize); "
 const usePagination = <T,>(
   inputArray: T[],
   pageSize: number

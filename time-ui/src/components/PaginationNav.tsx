@@ -17,13 +17,10 @@ const Pagination = <T extends unknown>(
 
   // Navigation Display Logic
 
-  // Will not display if currentPage is > pageCount
   const isLessthanPageCount = currentPage < pageCount;
 
-  // Will not display if currentPage is same as pageCount
   const isNotSameAsPageCount = currentPage !== pageCount;
 
-  // Will not display if currentPage is 1
   const isNotFirst = currentPage !== 1;
 
   // Will not display if currentPage is 4 or lower

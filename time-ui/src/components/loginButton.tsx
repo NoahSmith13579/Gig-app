@@ -6,7 +6,7 @@ const LoginButton: React.FC = () => {
 
   return (
     <div>
-      <button onClick={() => login()}>Log-in.</button>
+      <button onClick={() => login()}>Log-in</button>
     </div>
   );
 };

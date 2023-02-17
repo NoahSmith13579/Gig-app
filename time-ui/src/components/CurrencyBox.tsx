@@ -29,13 +29,12 @@ const CurrencyBox: React.FC<CurrencyBoxProps> = ({
     if (newVal.length < prefix.length) {
       return;
     }
-
+    // skips over prefix, else it would include the prefix
     const realValue = newVal.substring(prefix.length);
 
     if (realValue.length === 0) {
       setStringValue(realValue);
       onChange(0);
-
       return;
     }
 
