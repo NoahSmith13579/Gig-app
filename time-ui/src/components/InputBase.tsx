@@ -10,6 +10,7 @@ interface InputBaseProps {
   error?: string;
   style?: object;
   disabled?: boolean;
+  maxlength?: number;
 }
 
 const InputBase: React.FC<InputBaseProps> = ({
@@ -21,6 +22,7 @@ const InputBase: React.FC<InputBaseProps> = ({
   error,
   style,
   disabled,
+  maxlength,
 }) => {
   const [id] = React.useState(uuid());
 
@@ -40,6 +42,7 @@ const InputBase: React.FC<InputBaseProps> = ({
         defaultValue={defaultValue}
         style={style}
         disabled={disabled}
+        maxLength={maxlength}
       />
       {!!error && <span className='error'>{error}</span>}
     </div>

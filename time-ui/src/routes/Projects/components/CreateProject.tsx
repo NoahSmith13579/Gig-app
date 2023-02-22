@@ -17,7 +17,7 @@ const CreateProject: React.FC = () => {
 
   const [projectName, setProjectName] = React.useState('');
   const [projectDesc, setDesc] = React.useState('');
-  const [projectOwner, setOwner] = React.useState('');
+  const [projectOwner, setOwner] = React.useState(name as string);
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();

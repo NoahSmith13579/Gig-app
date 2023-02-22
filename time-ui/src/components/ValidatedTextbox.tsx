@@ -9,6 +9,7 @@ interface ValidatedTextboxProps {
   placeholder?: string;
   style?: object;
   disabled?: boolean;
+  maxlength?: number;
 }
 const ValidatedTextbox: React.FC<ValidatedTextboxProps> = ({
   label,
@@ -17,6 +18,7 @@ const ValidatedTextbox: React.FC<ValidatedTextboxProps> = ({
   validate,
   style,
   disabled,
+  maxlength,
 }) => {
   const [error, setError] = React.useState('');
   const [edited, setEdited] = React.useState(false);
@@ -41,6 +43,7 @@ const ValidatedTextbox: React.FC<ValidatedTextboxProps> = ({
       error={error}
       style={style}
       disabled={disabled}
+      maxlength={maxlength}
     />
   );
 };

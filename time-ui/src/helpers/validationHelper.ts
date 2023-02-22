@@ -45,11 +45,11 @@ const notReversedDateRange: ValidationRuleMulti<Date> = (
 
 const withinCharLimit: ValidationRule<string> = (value: string) => {
   const func = () => {
-    const charLim = 250;
+    const charLim = 50;
     const valueCharlength = value.length;
 
-    if (valueCharlength > charLim) {
-      return 'Notes must be 250 characters or less';
+    if (valueCharlength >= charLim) {
+      return 'Notes must be 50 characters or less';
     }
 
     return '';
