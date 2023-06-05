@@ -26,24 +26,11 @@ import PopOut from '../../../components/PopoutBox';
 import Pagination from '../../../components/PaginationNav';
 import { useAuth } from '../../../contexts/AuthContext';
 import DataTable from './DataTable';
+import { getDefaultCost, getDefaultRevenue } from '../../../helpers/getDefault';
 
 interface ProjectParams {
   projectId: string;
 }
-
-const getDefaultCost = (): Cost => ({
-  id: uuid(),
-  name: 'Default Cost Name',
-  amount: 0,
-  date: new Date(),
-});
-
-const getDefaultRevenue = (): Revenue => ({
-  id: uuid(),
-  name: 'Default Revenue Name',
-  amount: 0,
-  date: new Date(),
-});
 
 const ViewProject: React.FC = () => {
   const { projectId } = useParams<keyof ProjectParams>() as ProjectParams;
