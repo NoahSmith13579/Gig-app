@@ -1,45 +1,59 @@
 import Trash from '../../../components/icons/Trash';
 import Pagination from '../../../components/PaginationNav';
+import Cost from '../../../entities/Cost';
+import Revenue from '../../../entities/Revenue';
 import { dateFormatter } from '../../../helpers/dateHelper';
-import AddCostBox from './AddCostBox';
-
-//TODO: This makes AddRevenueBox redundant
+import Handlers from '../../../handlers/ViewProjHandlers';
+import AddBox from './AddBox';
 
 interface DataTableProps<T> {
   currentData: T[];
-  handleRemove: Function;
   currentPage: number;
   pageCount: number;
   goToPage: Function;
   pageSize: number;
   showData: Boolean;
   isSameUser: Boolean;
-  onSubmit(): void;
-  onCancel(): void;
-  onChange(any: any): void;
-  handleClose: Function;
-  setShow: Function;
   tableType: string;
-  tableTypeValue: any;
 }
-const DataTable = (props: React.PropsWithChildren<DataTableProps<any>>) => {
+const DataTable = (
+  props: React.PropsWithChildren<DataTableProps<Cost | Revenue>>
+) => {
   const {
     currentData,
-    handleRemove,
     currentPage,
     pageCount,
     goToPage,
     pageSize,
     showData,
     isSameUser,
-    onSubmit,
-    onCancel,
-    onChange,
-    handleClose,
-    setShow,
     tableType,
-    tableTypeValue,
   } = props;
+  const {
+    handleRemoveCost,
+    handleRemoveRevenue,
+    handleCloseCost,
+    handleCloseRevenue,
+    handleSetShowCost,
+    handleSetShowRevenue,
+  } = Handlers();
+
+  let handleRemove: Function, handleClose: Function, setShow: Function;
+
+  switch (tableType) {
+    case 'Cost': {
+      handleRemove = handleRemoveCost;
+      handleClose = handleCloseCost;
+      setShow = handleSetShowCost;
+      break;
+    }
+    case 'Revenue': {
+      handleRemove = handleRemoveRevenue;
+      handleClose = handleCloseRevenue;
+      setShow = handleSetShowRevenue;
+      break;
+    }
+  }
 
   return (
     <div>
@@ -81,12 +95,7 @@ const DataTable = (props: React.PropsWithChildren<DataTableProps<any>>) => {
           pageSize={pageSize}
         />
         {showData && isSameUser ? (
-          <AddCostBox
-            cost={tableTypeValue}
-            onSubmit={onSubmit}
-            onCancel={onCancel}
-            onChange={onChange}
-          />
+          <AddBox tableType={tableType} />
         ) : (
           <button
             disabled={!isSameUser}

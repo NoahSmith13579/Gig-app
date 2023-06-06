@@ -65,7 +65,7 @@ const getProject = async (projectId: string): Promise<Project> => {
     `/projects/${projectId}`,
     {}
   );
-
+  debugger;
   return formatProjectDates(proj);
 };
 
