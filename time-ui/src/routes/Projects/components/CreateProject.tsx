@@ -25,7 +25,9 @@ const CreateProject: React.FC = () => {
     const isValid = !validateName() && !validateOwner() && !validateDesc();
 
     if (!isValid) {
-      toast.error('Validation error. Please check all fields are filled in.');
+      toast.error('Validation error. Please check all fields are filled in.', {
+        toastId: 'ValidationError',
+      });
 
       return;
     }
@@ -49,14 +51,18 @@ const CreateProject: React.FC = () => {
       setLoading(false);
 
       if (!resp.success) {
-        toast.error(resp.message ?? 'Error creating project.');
+        toast.error(resp.message ?? 'Error creating project.', {
+          toastId: 'createProjectError',
+        });
         return;
       }
       const response = resp.content;
 
       const newUrl = `/projects/${response?.id}`;
       navigate(newUrl);
-      toast.success('Successfully created project!');
+      toast.success('Successfully created project!', {
+        toastId: 'createProjectSuccess',
+      });
     });
   };
 

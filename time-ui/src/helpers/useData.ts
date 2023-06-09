@@ -42,7 +42,7 @@ const useService = <T>(
       })
       .catch((err) => {
         setErr(err);
-        toast.error(err);
+        toast.error(err, { toastId: 'useService' });
       })
       .finally(() => setLoading(false));
   }, []);

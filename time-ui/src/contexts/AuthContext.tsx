@@ -128,7 +128,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (err) {
       error(err as string);
       toast.error(
-        'Unable to stay logged in. Please re-enter your credentials.'
+        'Unable to stay logged in. Please re-enter your credentials.',
+        { toastId: 'doRequestError' }
       );
       logout();
       return;
@@ -192,7 +193,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setAuthState(getUnauthstate());
-    toast.error('Logged out...');
+    toast.error('Logged out...', { toastId: 'LoggedOut' });
   };
 
   return (

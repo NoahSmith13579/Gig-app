@@ -182,9 +182,13 @@ const projectReducer: Reducer<ProjectState, Action> = (
     case 'confirm_delete': {
       deleteProject(state.project!)
         .then(() => {
-          toast.success('Deleted Project');
+          toast.success('Deleted Project', { toastId: 'deleteProjectSuccess' });
         })
-        .catch((err) => toast.error('Cannot delete project - ' + err));
+        .catch((err) =>
+          toast.error('Cannot delete project - ' + err, {
+            toastId: 'deleteProjectError',
+          })
+        );
       window.location.href = '/projects';
       return { ...state, showDeletePopout: false };
     }
@@ -194,9 +198,13 @@ const projectReducer: Reducer<ProjectState, Action> = (
       updateProject(state.project!)
         .then((resp) => {
           newProject = resp;
-          toast.success('Updated project!');
+          toast.success('Updated project!', { toastId: 'updateProject' });
         })
-        .catch((err) => toast.error('Cannot update project - ' + err))
+        .catch((err) =>
+          toast.error('Cannot update project - ' + err, {
+            toastId: 'updateProjectError',
+          })
+        )
         .finally(() => {
           state.submitting = false;
           state.hasBeenModified = false;
