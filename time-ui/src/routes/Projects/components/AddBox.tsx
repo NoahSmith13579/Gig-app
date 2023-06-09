@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ValidatedCurrencyBox from '../../../components/ValidatedCurrencyBox';
 import ValidatedDatePicker from '../../../components/ValidatedDatePicker';
 import ValidatedTextbox from '../../../components/ValidatedTextbox';
@@ -6,42 +6,43 @@ import Cost from '../../../entities/Cost';
 import { notEmpty, notNegative } from '../../../helpers/validationHelper';
 import Handlers from '../../../handlers/ViewProjHandlers';
 import Revenue from '../../../entities/Revenue';
-import { useStateContext } from '../../../contexts/StateContext';
+import { StateContext } from '../../../contexts/StateContext';
 
 interface AddBoxProps {
   tableType: string;
 }
 
-const AddCostBox: React.FC<AddBoxProps> = ({ tableType }) => {
+const AddBox: React.FC<AddBoxProps> = ({ tableType }) => {
   const [curError, setCurError] = React.useState('');
 
   const {
     handleSetCost,
     handleSetRevenue,
-    handleSubmit,
     handleCloseCost,
     handleCloseRevenue,
+    handleAppendCost,
+    handleAppendRevenue,
   } = Handlers();
 
-  let onSubmit: Function,
-    onChange: Function,
+  let onChange: Function,
     boxValue!: Cost | Revenue,
-    onCancel!: Function;
-  const { state } = useStateContext();
+    onCancel!: Function,
+    onAppend!: Function;
+  const { state } = useContext(StateContext);
 
   switch (tableType) {
-    case 'Cost': {
-      onSubmit = handleSubmit;
+    case 'cost': {
       onChange = handleSetCost;
       boxValue = state.cost;
       onCancel = handleCloseCost;
+      onAppend = handleAppendCost;
       break;
     }
-    case 'Revenue': {
-      onSubmit = handleSubmit;
+    case 'revenue': {
       onChange = handleSetRevenue;
       boxValue = state.revenue;
       onCancel = handleCloseRevenue;
+      onAppend = handleAppendRevenue;
       break;
     }
   }
@@ -66,11 +67,10 @@ const AddCostBox: React.FC<AddBoxProps> = ({ tableType }) => {
     if (!isNameValid || !isAmountValid) {
       return;
     }
-
-    onSubmit();
+    onAppend();
   };
 
-  // Could be some issue with how the functions are invoked
+  // There could be some issue with how the functions are invoked
   return (
     <div className='flex col'>
       <ValidatedTextbox
@@ -106,4 +106,4 @@ const AddCostBox: React.FC<AddBoxProps> = ({ tableType }) => {
   );
 };
 
-export default AddCostBox;
+export default AddBox;

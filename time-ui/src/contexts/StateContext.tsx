@@ -13,27 +13,13 @@ interface ContextProps {
   children: React.ReactNode;
 }
 
-interface StateContextObjProps {
-  state: ProjectState;
-  dispatch: Dispatch<Action>;
-  StateContext: React.Context<StateContextContainer>;
-}
+export const StateContext = createContext<StateContextContainer>({
+  state: initialState,
+  dispatch: () => null,
+});
 
-const StateContextObj = (): StateContextObjProps => {
-  const [state, dispatch] = useReducer(projectReducer, initialState);
-
-  const StateContext = createContext<StateContextContainer>({
-    state: initialState,
-    dispatch: dispatch,
-  });
-  return { state, dispatch, StateContext };
-};
-
-const useStateContext = (): StateContextContainer =>
-  React.useContext(StateContextObj().StateContext);
 const StateProvider: React.FC<ContextProps> = ({ children }) => {
-  const { state, dispatch } = useStateContext();
-  const { StateContext } = StateContextObj();
+  const [state, dispatch] = useReducer(projectReducer, initialState);
 
   return (
     <StateContext.Provider value={{ state, dispatch }}>
@@ -42,4 +28,4 @@ const StateProvider: React.FC<ContextProps> = ({ children }) => {
   );
 };
 
-export { useStateContext, StateProvider };
+export { StateProvider };

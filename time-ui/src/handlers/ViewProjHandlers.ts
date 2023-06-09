@@ -1,11 +1,12 @@
 import Cost from '../entities/Cost';
 import Project from '../entities/Project';
-import { useStateContext } from '../contexts/StateContext';
+import { StateContext } from '../contexts/StateContext';
 import Revenue from '../entities/Revenue';
 import DayWorked from '../entities/DayWorked';
+import { useContext } from 'react';
 
 function Handlers() {
-  const { dispatch } = useStateContext();
+  const { dispatch } = useContext(StateContext);
 
   const handleAppendCost = () => {
     dispatch({ type: 'append_cost', payload: {} });

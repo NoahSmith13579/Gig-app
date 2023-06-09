@@ -42,7 +42,6 @@ const projectReducer: Reducer<ProjectState, Action> = (
   state,
   action
 ): ProjectState => {
-  // TODO this could be a break point
   let {
     project,
     projectId,
@@ -60,11 +59,11 @@ const projectReducer: Reducer<ProjectState, Action> = (
     loading,
     data,
   } = state;
-
   switch (action.type) {
     case 'pageLoadState': {
-      state = action.payload.onLoadState;
-      return state;
+      const newState = action.payload.onLoadState;
+
+      return { ...newState };
     }
     case 'remove_cost': {
       const costs = project!.profit.costs.filter(
@@ -78,8 +77,7 @@ const projectReducer: Reducer<ProjectState, Action> = (
           costs,
         },
       };
-      state.project = newProject;
-      return state;
+      return { ...state, project: newProject };
     }
     case 'remove_revenue': {
       const revenues = project!.profit.revenues.filter(
@@ -93,8 +91,7 @@ const projectReducer: Reducer<ProjectState, Action> = (
           revenues,
         },
       };
-      state.project = newProject;
-      return state;
+      return { ...state, project: newProject };
     }
     case 'remove_day': {
       const daysWorked = project!.daysWorked.filter(
@@ -106,9 +103,7 @@ const projectReducer: Reducer<ProjectState, Action> = (
         daysWorked: daysWorked,
       };
 
-      state.project = newProject;
-
-      return state;
+      return { ...state, project: newProject };
     }
     case 'append_cost': {
       const newProject: Project = {
@@ -118,10 +113,12 @@ const projectReducer: Reducer<ProjectState, Action> = (
           costs: [...project!.profit.costs, cost],
         },
       };
-      state.project = newProject;
-      state.showCost = false;
-      state.cost = getDefaultCost();
-      return state;
+      return {
+        ...state,
+        project: newProject,
+        showCost: false,
+        cost: getDefaultCost(),
+      };
     }
     case 'append_revenue': {
       const newProject: Project = {
@@ -131,113 +128,116 @@ const projectReducer: Reducer<ProjectState, Action> = (
           revenues: [...project!.profit.revenues, revenue],
         },
       };
-      state.project = newProject;
-      state.showRevenue = false;
-      state.revenue = getDefaultRevenue();
-      return state;
+      return {
+        ...state,
+        project: newProject,
+        showRevenue: false,
+        revenue: getDefaultRevenue(),
+      };
     }
     case 'append_day': {
       const newProject: Project = {
         ...project!,
         daysWorked: [...project!.daysWorked, dayWorked],
       };
-      state.project = newProject;
-      state.showDayWorked = false;
-      state.dayWorked = getDefaultDay();
-      return state;
+      return {
+        ...state,
+        project: newProject,
+        showDayWorked: false,
+        dayWorked: getDefaultDay(),
+      };
     }
     case 'close_cost': {
       if (state.showCost) {
-        state.cost = getDefaultCost();
+        return { ...state, cost: getDefaultCost(), showCost: !state.showCost };
       }
-      state.showCost = !state.showCost;
-      return state;
+      return { ...state, showCost: !state.showCost };
     }
     case 'close_revenue': {
       if (state.showRevenue) {
-        state.revenue = getDefaultRevenue();
+        return {
+          ...state,
+          revenue: getDefaultRevenue(),
+          showRevenue: !state.showRevenue,
+        };
       }
-      state.showRevenue = !state.showRevenue;
-      return state;
+      return { ...state, showRevenue: !state.showRevenue };
     }
     case 'close_day': {
-      if (state.showDayWorked) {
-        state.dayWorked = getDefaultDay();
+      if (state.showRevenue) {
+        return {
+          ...state,
+          dayWorked: getDefaultDay(),
+          showDayWorked: !state.showDayWorked,
+        };
       }
-      state.showDayWorked = !state.showRevenue;
-      return state;
+      return { ...state, showDayWorked: !state.showDayWorked };
     }
     case 'pop_outside': {
-      state.showPopout = !state.showPopout;
-      return state;
+      return { ...state, showPopout: !state.showPopout };
     }
     case 'pop_outside_delete': {
-      state.showDeletePopout = !state.showDeletePopout;
-      return state;
+      return { ...state, showDeletePopout: !state.showDeletePopout };
     }
     case 'confirm_delete': {
-      state.showDeletePopout = false;
       deleteProject(state.project!)
         .then(() => {
           toast.success('Deleted Project');
         })
         .catch((err) => toast.error('Cannot delete project - ' + err));
       window.location.href = '/projects';
-      return state;
+      return { ...state, showDeletePopout: false };
     }
     case 'submit': {
-      state.submitting = true;
+      //state.submitting = true;
+      let newProject: Project;
       updateProject(state.project!)
         .then((resp) => {
-          state.project = resp;
+          newProject = resp;
           toast.success('Updated project!');
         })
         .catch((err) => toast.error('Cannot update project - ' + err))
         .finally(() => {
           state.submitting = false;
           state.hasBeenModified = false;
+          return {
+            ...state,
+            project: newProject,
+            submitting: false,
+            hasBeenModified: false,
+          };
         });
-      return state;
+      return { ...state, submitting: false, hasBeenModified: false };
     }
     case 'set_project': {
-      state.project = action.payload.data;
-      return state;
+      return { ...state, project: action.payload.data };
     }
     case 'set_modified': {
-      state.hasBeenModified = action.payload.bool;
-      return state;
+      return { ...state, hasBeenModified: action.payload.bool };
     }
     case 'set_cost': {
-      state.cost = action.payload.cost;
-      return state;
+      return { ...state, cost: action.payload.cost };
     }
     case 'set_show_cost': {
-      state.showCost = action.payload.bool;
-      return state;
+      return { ...state, showCost: action.payload.bool };
     }
     case 'set_revenue': {
-      state.revenue = action.payload.revenue;
-      return state;
+      return { ...state, revenue: action.payload.revenue };
     }
     case 'set_show_revenue': {
-      state.showRevenue = action.payload.bool;
-      return state;
+      return { ...state, showRevenue: action.payload.bool };
     }
     case 'set_day': {
-      state.dayWorked = action.payload.dayWorked;
-      return state;
+      return { ...state, dayWorked: action.payload.dayWorked };
     }
     case 'set_show_day': {
-      state.showDayWorked = action.payload.bool;
-      return state;
+      return { ...state, showDayWorked: action.payload.bool };
     }
     case 'set_show_popout': {
-      state.showPopout = action.payload.bool;
-      return state;
+      return { ...state, showPopout: action.payload.bool };
     }
     case 'set_show_popout_delete': {
-      state.showDeletePopout = action.payload.bool;
-      return state;
+      return { ...state, showDeletePopout: action.payload.bool };
     }
     default:
       return state;

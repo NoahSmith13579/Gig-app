@@ -44,10 +44,10 @@ const calcProfitPerHour = (
 };
 
 const calcReturnOnInvestment = (costs: Cost[], revenues: Revenue[]): number => {
-  const Profit = calcProfit(costs, revenues);
-  const Cost = calcTCost(costs);
+  const Profit = Math.max(calcProfit(costs, revenues), 1);
+  const Cost = Math.max(calcTCost(costs), 1);
 
-  const ReturnOnInvestment = (Cost / Profit) * 100;
+  const ReturnOnInvestment = (Profit / Cost) * 100;
 
   return ReturnOnInvestment;
 };

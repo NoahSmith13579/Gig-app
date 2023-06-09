@@ -41,13 +41,13 @@ const DataTable = (
   let handleRemove: Function, handleClose: Function, setShow: Function;
 
   switch (tableType) {
-    case 'Cost': {
+    case 'cost': {
       handleRemove = handleRemoveCost;
       handleClose = handleCloseCost;
       setShow = handleSetShowCost;
       break;
     }
-    case 'Revenue': {
+    case 'revenue': {
       handleRemove = handleRemoveRevenue;
       handleClose = handleCloseRevenue;
       setShow = handleSetShowRevenue;
@@ -57,7 +57,9 @@ const DataTable = (
 
   return (
     <div>
-      <p className='m-1'>{tableType}s:</p>
+      <p className='m-1'>
+        {tableType.charAt(0).toUpperCase() + tableType.slice(1)}s:
+      </p>
       <div className='card'>
         <table>
           <thead>
@@ -75,7 +77,9 @@ const DataTable = (
                 <td>{currItem.id.substring(0, 6)}</td>
                 <td>{currItem.name}</td>
                 <td>{currItem.amount}</td>
-                <td>{dateFormatter(currItem.date)}</td>
+                <td style={{ whiteSpace: 'nowrap' }}>
+                  {dateFormatter(currItem.date)}
+                </td>
                 <td>
                   <Trash
                     classNames={'button-danger'}
