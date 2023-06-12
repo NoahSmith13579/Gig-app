@@ -1,4 +1,5 @@
 import Cost from '../entities/Cost';
+import DayWorked from '../entities/DayWorked';
 import Revenue from '../entities/Revenue';
 import { v4 as uuid } from 'uuid';
 
@@ -16,4 +17,12 @@ const getDefaultRevenue = (): Revenue => ({
   date: new Date(),
 });
 
-export { getDefaultCost, getDefaultRevenue };
+const getDefaultDay = (): DayWorked => ({
+  id: uuid(),
+  projectId: uuid(),
+  notes: '',
+  startDate: new Date(),
+  timeWorked: 28800,
+});
+
+export { getDefaultCost, getDefaultRevenue, getDefaultDay };

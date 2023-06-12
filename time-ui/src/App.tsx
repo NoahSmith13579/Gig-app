@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Routes from './Routes';
 import { AuthProvider } from './contexts/AuthContext';
+import { StateProvider } from './contexts/StateContext';
 
 import './App.css';
 import Spinner from './components/Spinner';
@@ -27,7 +28,9 @@ const App: React.FC = () => {
     </div>
   ) : (
     <AuthProvider>
-      <Routes />
+      <StateProvider>
+        <Routes />
+      </StateProvider>
     </AuthProvider>
   );
 };

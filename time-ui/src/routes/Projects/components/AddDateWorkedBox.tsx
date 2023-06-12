@@ -8,21 +8,16 @@ import {
   notReversedDateRange,
   withinCharLimit,
 } from '../../../helpers/validationHelper';
+import Handlers from '../../../handlers/ViewProjHandlers';
 
 interface AddDateWorkedBoxProps {
   dayWorked: DayWorked;
-  onChange(newDayWorked: DayWorked): void;
-  onSubmit(): void;
-  onCancel(): void;
 }
 
-const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({
-  dayWorked,
-  onChange,
-  onSubmit,
-  onCancel,
-}) => {
+const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({ dayWorked }) => {
   const [curError, setCurError] = React.useState('');
+  let { handleSetDay, handleAppendDaysWorked, handleCloseDayWorked } =
+    Handlers();
 
   const endDate = addSeconds(dayWorked.startDate, dayWorked.timeWorked);
 
@@ -40,19 +35,18 @@ const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({
   const shouldDisableSubmit = !isNameValid;
 
   const handleUpdateDate = (newVal: Date) => {
-    onChange({ ...dayWorked, startDate: newVal });
+    handleSetDay({ ...dayWorked, startDate: newVal });
   };
 
-  const handleSubmit = () => {
+  const handleSubmitDayBox = () => {
     if (!isNameValid) {
       return;
     }
-
-    onSubmit();
+    handleAppendDaysWorked();
   };
 
   const handleUpdateNotes = (newVal: string) => {
-    onChange({ ...dayWorked, notes: newVal });
+    handleSetDay({ ...dayWorked, notes: newVal });
   };
 
   const handleUpdateEnd = (newVal: Date) => {
@@ -66,7 +60,7 @@ const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({
 
     const delta = (newTime - oldTime) / 1000; // milis into seconds
 
-    onChange({
+    handleSetDay({
       ...dayWorked,
       timeWorked: delta,
     });
@@ -112,10 +106,13 @@ const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({
       </p>
 
       <div className='flex'>
-        <button disabled={shouldDisableSubmit} onClick={handleSubmit}>
+        <button disabled={shouldDisableSubmit} onClick={handleSubmitDayBox}>
           Add
         </button>
-        <button className='button-danger ml-auto' onClick={onCancel}>
+        <button
+          className='button-danger ml-auto'
+          onClick={handleCloseDayWorked}
+        >
           Cancel
         </button>
       </div>

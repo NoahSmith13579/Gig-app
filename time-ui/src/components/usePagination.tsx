@@ -26,7 +26,7 @@ const usePagination = <T,>(
     if (itemsMinusLast < lastPageAmount) {
       setCurrentData(inputArray.slice(firstItemOnPage));
     }
-  }, [inputArray, currentPage, currentData, pageCount]);
+  }, [inputArray, currentPage, pageCount]);
 
   return [currentPage, currentData, pageCount, goToPage];
 };
