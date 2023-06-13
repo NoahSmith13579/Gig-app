@@ -17,7 +17,6 @@ const usePagination = <T,>(
     const lastItemOnPage = currentPage * pageSize;
     const firstItemOnPage = lastItemOnPage - pageSize;
     const currentPages = inputArray.length / pageSize;
-
     if (pageCount !== currentPages) setPageCount(Math.ceil(currentPages));
 
     if (itemsMinusLast > lastPageAmount) {
@@ -25,6 +24,9 @@ const usePagination = <T,>(
     }
     if (itemsMinusLast < lastPageAmount) {
       setCurrentData(inputArray.slice(firstItemOnPage));
+    }
+    if (itemsMinusLast === lastPageAmount) {
+      setCurrentData(inputArray);
     }
   }, [inputArray, currentPage, pageCount]);
 

@@ -37,19 +37,25 @@ const calcProfitPerHour = (
   revenues: Revenue[],
   daysWorked: DayWorked[]
 ): number => {
-  const ProfitPerHour =
-    calcProfit(costs, revenues) / calcTTimeWorked(daysWorked);
+  let ProfitPerHour = calcProfit(costs, revenues) / calcTTimeWorked(daysWorked);
+  ProfitPerHour = Math.round((ProfitPerHour + Number.EPSILON) * 100) / 100;
+  if (isNaN(ProfitPerHour)) {
+    ProfitPerHour = 0;
+  }
 
   return ProfitPerHour;
 };
 
 const calcReturnOnInvestment = (costs: Cost[], revenues: Revenue[]): number => {
-  const Profit = Math.max(calcProfit(costs, revenues), 1);
-  const Cost = Math.max(calcTCost(costs), 1);
+  const Profit = calcProfit(costs, revenues);
+  const Cost = calcTCost(costs);
 
-  const ReturnOnInvestment = (Profit / Cost) * 100;
+  let ROI = (Profit / Cost) * 100;
+  if (isNaN(ROI)) {
+    ROI = 0;
+  }
 
-  return ReturnOnInvestment;
+  return ROI;
 };
 
 const conditionalFormattingIB = (func: number): string => {

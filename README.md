@@ -1,6 +1,6 @@
 # Gig App v2
 
-This app is written using React and Typescript.
+This app is written using the MERN stack and Typescript.
 
 ## Purpose
 

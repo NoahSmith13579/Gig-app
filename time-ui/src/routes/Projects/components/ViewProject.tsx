@@ -54,7 +54,7 @@ const ViewProject: React.FC = () => {
         payload: { onLoadState: initialState },
       });
     }
-  }, [dataInit]);
+  }, [dataInit, isloading]);
 
   useEffect(() => {
     console.log('State: ', state);

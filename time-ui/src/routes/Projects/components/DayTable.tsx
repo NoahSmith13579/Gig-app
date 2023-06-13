@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { Fragment, useContext } from 'react';
 import Pagination from '../../../components/PaginationNav';
 import Trash from '../../../components/icons/Trash';
 import DayWorked from '../../../entities/DayWorked';
@@ -57,11 +57,11 @@ const DayTable: React.FC<DayTableProps> = (
           </thead>
           <tbody>
             {currentData.map((dayWorked) => (
-              <>
+              <Fragment key={dayWorked.id}>
                 {showPopout && (
                   <PopoutBox title={'Note'} body={dayWorked.notes} />
                 )}
-                <tr key={dayWorked.id}>
+                <tr>
                   <td>
                     <button onClick={() => handleSetShowPopout(true)}>
                       {dayWorked.notes.substring(0, 6)}
@@ -84,7 +84,7 @@ const DayTable: React.FC<DayTableProps> = (
                     />
                   </td>
                 </tr>
-              </>
+              </Fragment>
             ))}
           </tbody>
         </table>
