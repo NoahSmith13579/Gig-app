@@ -6,6 +6,7 @@ const { OAuth2Client } = require("google-auth-library");
 
 const privateKey = fs.readFileSync("./keys/priv.key").toString();
 const publicKey = fs.readFileSync("./keys/pub.pem").toString();
+const secretKey = process.env.SECRET_KEY;
 
 const oauthClient = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
 
@@ -186,17 +187,23 @@ app.post(
         /**
          *  Send this  back as a new token
          * */
-
-        const newToken = jwt.sign(newPayload, privateKey, {
-            algorithm: "RS256",
-            expiresIn: "10m",
+        const newToken = jwt.sign(newPayload, secretKey, {
+            algorithm: "HS256",
+            expiresIn: "30m",
         });
 
-        console.log(
+        /* const newToken = jwt.sign(newPayload, privateKey, {
+            algorithm: "RS256",
+            expiresIn: "10m",
+        }); */
+
+        /* console.log(
             jwt.verify(newToken, publicKey, {
                 algorithm: ["RS256"],
             })
-        );
+        ); */
+
+        console.log(jwt.verify(newToken, secretKey, { algorithm: ["HS256"] }));
 
         console.log("newtoken", newToken);
 
@@ -223,8 +230,11 @@ app.post(
 
         let decoded;
         try {
-            decoded = jwt.verify(token, publicKey, {
+            /* decoded = jwt.verify(token, publicKey, {
                 algorithm: "RS256",
+            }); */
+            decoded = jwt.verify(token, secretKey, {
+                algorithm: "HS256",
             });
         } catch (err) {
             res.status(400).end();
@@ -235,9 +245,13 @@ app.post(
 
         delete decoded.exp;
 
-        const newToken = jwt.sign(decoded, privateKey, {
+        /* const newToken = jwt.sign(decoded, privateKey, {
             algorithm: "RS256",
             expiresIn: "10m",
+        }); */
+        const newToken = jwt.sign(decoded, secretKey, {
+            algorithm: "HS256",
+            expiresIn: "30m",
         });
         return res.send({
             content: newToken,
