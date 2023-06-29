@@ -2,6 +2,7 @@ import Project from '../entities/Project';
 import { ApiResponse, doRequest } from '../helpers/apiHelper';
 import makeLog from '../helpers/makeLog';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { log, debug } = makeLog('projectService');
 
 /**
@@ -38,7 +39,7 @@ const createProject = async (
 ): Promise<ApiResponse<Project>> => {
   debug('createProject() ' + JSON.stringify(payload));
 
-  return await doRequest('/projects', {
+  return await doRequest('/api/projects', {
     body: payload,
     method: 'POST',
   });
@@ -50,7 +51,7 @@ const createProject = async (
 const getProjects = async (): Promise<Project[]> => {
   debug('getProjects()');
 
-  const resp = await doRequest<Project[]>('/projects', {});
+  const resp = await doRequest<Project[]>('/api/projects', {});
 
   return resp.content;
 };
@@ -62,7 +63,7 @@ const getProject = async (projectId: string): Promise<Project> => {
   debug(`getProject(${projectId})`);
 
   const { content: proj } = await doRequest<Project>(
-    `/projects/${projectId}`,
+    `/api/projects/${projectId}`,
     {}
   );
   return formatProjectDates(proj);
@@ -76,7 +77,7 @@ const updateProject = async (project: Project): Promise<Project> => {
   debug(`updateProject(${project.id})`);
 
   const { content: proj } = await doRequest<Project>(
-    `/projects/${project.id}`,
+    `/api/projects/${project.id}`,
     {
       body: project,
       method: 'PUT',
@@ -88,7 +89,7 @@ const updateProject = async (project: Project): Promise<Project> => {
 
 const deleteProject = async (project: Project): Promise<Project> => {
   debug(`DeleteProject(${project.id})`);
-  await doRequest<Project>(`/projects/${project.id}`, {
+  await doRequest<Project>(`/api/projects/${project.id}`, {
     body: project,
     method: 'Delete',
   });

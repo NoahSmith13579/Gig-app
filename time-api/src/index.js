@@ -4,8 +4,6 @@ const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const { OAuth2Client } = require("google-auth-library");
 
-const privateKey = fs.readFileSync("./keys/priv.key").toString();
-const publicKey = fs.readFileSync("./keys/pub.pem").toString();
 const secretKey = process.env.SECRET_KEY;
 
 const oauthClient = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
@@ -58,16 +56,8 @@ const CON_STR = process.env.MONGO_CONNECTION_STRING;
 const mongo = new MongoClient(CON_STR);
 let database;
 
-//Serves publickey
-app.get("/public", (req, res) => {
-    let buff = new Buffer(publicKey);
-    let base64data = buff.toString("base64");
-
-    res.send({ success: true, content: { public: base64data } }).end();
-});
-
 app.get(
-    "/projects",
+    "/api/projects",
     asyncHandler(async (req, res) => {
         const projects = await database.getProjects();
 
@@ -79,7 +69,7 @@ app.get(
 );
 
 app.post(
-    "/projects",
+    "/api/projects",
     asyncHandler(async (req, res) => {
         if (!req.body) {
             res.send(400).end();
@@ -99,7 +89,7 @@ app.post(
 );
 
 app.get(
-    "/projects/:projectId",
+    "/api/projects/:projectId",
     asyncHandler(async (req, res) => {
         const { projectId } = req.params;
 
@@ -120,7 +110,7 @@ app.get(
 );
 
 app.put(
-    "/projects/:projectId",
+    "/api/projects/:projectId",
     asyncHandler(async (req, res) => {
         const { projectId } = req.params;
         const project = await database.getProject(projectId);
@@ -143,7 +133,7 @@ app.put(
     })
 );
 app.delete(
-    "/projects/:projectId",
+    "/api/projects/:projectId",
     asyncHandler(async (req, res) => {
         const { projectId } = req.params;
         const project = await database.getProject(projectId);
@@ -160,7 +150,7 @@ app.delete(
 );
 
 app.post(
-    "/auth/google",
+    "/api/auth/google",
     asyncHandler(async (req, res) => {
         if (!req.body) {
             res.send(400).end();
@@ -212,7 +202,7 @@ app.post(
 );
 
 app.post(
-    "/auth/renew",
+    "/api/auth/renew",
     asyncHandler((req, res) => {
         if (!req.headers["authorization"]) {
             res.status(401).end();

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo } from 'react';
 import ValidatedDatePicker from '../../../components/ValidatedDatePicker';
 import ValidatedTextbox from '../../../components/ValidatedTextbox';
@@ -15,18 +16,18 @@ interface AddDateWorkedBoxProps {
 }
 
 const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({ dayWorked }) => {
-  const [curError, setCurError] = React.useState('');
+  const [, setCurError] = React.useState('');
   let { handleSetDay, handleAppendDaysWorked, handleCloseDayWorked } =
     Handlers();
 
   const endDate = addSeconds(dayWorked.startDate, dayWorked.timeWorked);
 
-  const [validateName, isNameValid] = notEmpty('string');
-  const [validateDate, isDateValid] = notReversedDateRange(
+  const [, isNameValid] = notEmpty('string');
+  const [validateDate] = notReversedDateRange(
     dayWorked.startDate,
     endDate ?? new Date()
   );
-  const [validateNotes, isNotesValid] = withinCharLimit(dayWorked.notes);
+  const [validateNotes] = withinCharLimit(dayWorked.notes);
 
   React.useEffect(() => {
     setCurError('');
@@ -58,7 +59,7 @@ const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({ dayWorked }) => {
       return;
     }
 
-    const delta = (newTime - oldTime) / 1000; // milis into seconds
+    const delta = (newTime - oldTime) / 1000; // millis into seconds
 
     handleSetDay({
       ...dayWorked,

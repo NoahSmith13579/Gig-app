@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { doRequest } from '../helpers/apiHelper';
 import makeLog from '../helpers/makeLog';
@@ -121,7 +122,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     let resp;
 
     try {
-      resp = await doRequest<string>('/auth/renew', {
+      resp = await doRequest<string>('/api/auth/renew', {
         headers,
         method: 'POST',
       });
@@ -147,7 +148,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const handleLogin = async (creds: any) => {
     log('Getting user-info...');
 
-    const response = await doRequest<string>('/auth/google', {
+    const response = await doRequest<string>('/api/auth/google', {
       body: JSON.stringify(creds),
       method: 'POST',
     });

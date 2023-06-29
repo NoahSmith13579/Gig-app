@@ -27,6 +27,7 @@ const ValidatedTextbox: React.FC<ValidatedTextboxProps> = ({
     if (!edited) return;
 
     setError(validate() ?? '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, edited]);
 
   const handleInputChange = (newVal: string) => {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useService } from '../../../helpers/useData';
@@ -62,17 +63,12 @@ const ViewProject: React.FC = () => {
 
   const {
     project,
-    cost,
-    revenue,
-    dayWorked,
     showCost,
     showRevenue,
     showDayWorked,
-    showPopout,
     showDeletePopout,
     hasBeenModified,
     submitting,
-    dataError,
     loading,
     data,
   } = state;

@@ -7,7 +7,7 @@ import { getProjects } from '../../../services/projectService';
 const ViewProject: React.FC = () => {
   const navigate = useNavigate();
 
-  const [err, loading, projects] = useService(getProjects);
+  const [, loading, projects] = useService(getProjects);
 
   return (
     <div>

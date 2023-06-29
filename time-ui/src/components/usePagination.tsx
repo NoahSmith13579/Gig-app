@@ -28,6 +28,7 @@ const usePagination = <T,>(
     if (itemsMinusLast === lastPageAmount) {
       setCurrentData(inputArray);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputArray, currentPage, pageCount]);
 
   return [currentPage, currentData, pageCount, goToPage];

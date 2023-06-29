@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import { doRequest } from './apiHelper';
 import type { RequestParams } from './apiHelper';

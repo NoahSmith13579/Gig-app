@@ -42,23 +42,7 @@ const projectReducer: Reducer<ProjectState, Action> = (
   state,
   action
 ): ProjectState => {
-  let {
-    project,
-    projectId,
-    cost,
-    revenue,
-    dayWorked,
-    showCost,
-    showRevenue,
-    showDayWorked,
-    showPopout,
-    showDeletePopout,
-    hasBeenModified,
-    submitting,
-    dataError,
-    loading,
-    data,
-  } = state;
+  let { project, cost, revenue, dayWorked } = state;
   switch (action.type) {
     case 'pageLoadState': {
       const newState = action.payload.onLoadState;

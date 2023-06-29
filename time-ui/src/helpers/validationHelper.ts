@@ -33,7 +33,7 @@ const notReversedDateRange: ValidationRuleMulti<Date> = (
   const func = () => {
     const iDate = startDate.getTime();
     const fDate = endDate.getTime();
-    const delta = fDate - iDate / 1000;
+    //const delta = fDate - iDate / 1000;
 
     if (fDate <= iDate) {
       return 'End date and time must be after start date and time';

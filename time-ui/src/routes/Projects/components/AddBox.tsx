@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext } from 'react';
 import ValidatedCurrencyBox from '../../../components/ValidatedCurrencyBox';
 import ValidatedDatePicker from '../../../components/ValidatedDatePicker';
@@ -13,7 +14,7 @@ interface AddBoxProps {
 }
 
 const AddBox: React.FC<AddBoxProps> = ({ tableType }) => {
-  const [curError, setCurError] = React.useState('');
+  const [, setCurError] = React.useState('');
 
   const {
     handleSetCost,
