@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
 
 const { MongoClient } = require("mongodb");
 
-const CON_STR = process.env.MONGO_CONNECTION_STRING;
+const CON_STR = process.env.MONGO_ATLAS_CONNECTION_STRING;
 
 const mongo = new MongoClient(CON_STR);
 let database;
