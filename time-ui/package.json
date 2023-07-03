@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://noahsmith13579.github.io/Gig-app",
+  "homepage": "https://noahsmith13579.github.io/Gig-app/#",
   "dependencies": {
     "@react-oauth/google": "^0.2.6",
     "@types/node": "^16.11.27",

@@ -16,13 +16,13 @@ const NavbarHeader: React.FC = () => {
       <div className='flex grow'>
         <ul className='flex grow align-center'>
           <li>
-            <a href='/Gig-app/dash'>Dashboard</a>
+            <a href='/dash'>Dashboard</a>
           </li>
           <li>
-            <a href='/Gig-app/projects'>Projects</a>
+            <a href='/projects'>Projects</a>
           </li>
           <li>
-            <a href='/Gig-app/about'>About</a>
+            <a href='/about'>About</a>
           </li>
 
           {loggedIn ? (

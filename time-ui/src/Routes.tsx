@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './routes/Dashboard/';
 import ProjectRoutes from './routes/Projects';
@@ -11,7 +11,7 @@ import ErrorPage404 from './routes/404';
 const AppRoutes: React.FC = () => {
   const user = useAuth().authState.userid;
   return (
-    <BrowserRouter basename='/Gig-app'>
+    <HashRouter basename='/Gig-app'>
       <Routes>
         <Route element={<ProtectedRoute user={user} />}>
           <Route path='/projects/*' element={<ProjectRoutes />} />
@@ -22,7 +22,7 @@ const AppRoutes: React.FC = () => {
         <Route path='/' element={<Layout child={<About />} />} />
         <Route path='*' element={<Layout child={<ErrorPage404 />} />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
