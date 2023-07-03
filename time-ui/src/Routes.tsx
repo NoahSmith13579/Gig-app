@@ -11,7 +11,7 @@ import ErrorPage404 from './routes/404';
 const AppRoutes: React.FC = () => {
   const user = useAuth().authState.userid;
   return (
-    <HashRouter basename='/Gig-app'>
+    <HashRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route element={<ProtectedRoute user={user} />}>
           <Route path='/projects/*' element={<ProjectRoutes />} />
