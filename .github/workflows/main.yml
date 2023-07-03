@@ -21,7 +21,7 @@ jobs:
     - name: Build
       run: |
         npm install
-        npm build
+        npm run build
       env:
         REACT_APP_API_URL_PROD: ${{ secrets.REACT_APP_API_URL_PROD }}
         REACT_APP_GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
