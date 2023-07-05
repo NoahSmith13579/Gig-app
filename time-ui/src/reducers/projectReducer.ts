@@ -43,6 +43,7 @@ const projectReducer: Reducer<ProjectState, Action> = (
   action
 ): ProjectState => {
   let { project, cost, revenue, dayWorked } = state;
+  const deleteRedirectLocation = '/Gig-app/projects';
   switch (action.type) {
     case 'pageLoadState': {
       const newState = action.payload.onLoadState;
@@ -173,7 +174,7 @@ const projectReducer: Reducer<ProjectState, Action> = (
             toastId: 'deleteProjectError',
           })
         );
-      window.location.href = '/projects';
+      window.location.href = deleteRedirectLocation;
       return { ...state, showDeletePopout: false };
     }
     case 'submit': {
