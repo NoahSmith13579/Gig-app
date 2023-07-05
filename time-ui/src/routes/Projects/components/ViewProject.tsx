@@ -208,7 +208,7 @@ const ViewProject: React.FC = () => {
         <div>To view or modify a project, please log in.</div>
       )}
 
-      <a href='/projects'>Back to Projects</a>
+      <a href='/Gig-app/projects'>Back to Projects</a>
     </div>
   );
 };

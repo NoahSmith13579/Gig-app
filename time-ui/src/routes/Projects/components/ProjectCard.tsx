@@ -8,7 +8,7 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <div className='card'>
-      <a href={`/projects/${project.id}`}>
+      <a href={`/Gig-app/projects/${project.id}`}>
         <span className='title'>{project.name}</span>
       </a>
       <span className='subtitle'>{project.id}</span>
