@@ -26,7 +26,7 @@ const PopoutBox: React.FC<PopoutBoxProps> = ({
   };
   const deleteConfirmClick = () => {
     onConfirmDelete!();
-    window.location.href = '/Gig-app/projects';
+    //window.location.href = '/Gig-app/projects';
   };
 
   return onConfirmDelete ? (
