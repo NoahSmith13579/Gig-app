@@ -173,7 +173,10 @@ const projectReducer: Reducer<ProjectState, Action> = (
           toast.error('Cannot delete project - ' + err, {
             toastId: 'deleteProjectError',
           })
-        );
+        )
+        .finally(() => {
+          return { ...state, showDeletePopout: false };
+        });
       //window.location.href = deleteRedirectLocation;
       return { ...state, showDeletePopout: false };
     }
