@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - deploytest
 
 jobs:
   build:
