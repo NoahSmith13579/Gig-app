@@ -24,6 +24,10 @@ const PopoutBox: React.FC<PopoutBoxProps> = ({
   const closeDelete = () => {
     handleSetShowPopoutDelete(false);
   };
+  const deleteConfirmClick = () => {
+    onConfirmDelete!();
+    window.location.href = '/Gig-app/projects';
+  };
 
   return onConfirmDelete ? (
     <>
@@ -39,7 +43,7 @@ const PopoutBox: React.FC<PopoutBoxProps> = ({
             <button
               className='m-1'
               style={{ background: 'red' }}
-              onClick={onConfirmDelete}
+              onClick={deleteConfirmClick}
             >
               Confirm Delete
             </button>
