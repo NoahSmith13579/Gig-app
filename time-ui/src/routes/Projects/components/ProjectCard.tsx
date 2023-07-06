@@ -1,5 +1,6 @@
 import React from 'react';
 import Project from '../../../entities/Project';
+import { Link } from 'react-router-dom';
 
 interface ProjectCardProps {
   project: Project;
@@ -8,9 +9,9 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <div className='card'>
-      <a href={`/Gig-app/projects/${project.id}`}>
+      <Link to={`/projects/${project.id}`}>
         <span className='title'>{project.name}</span>
-      </a>
+      </Link>
       <span className='subtitle'>{project.id}</span>
       <span>{project.description}</span>
       <span>
