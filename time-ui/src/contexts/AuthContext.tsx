@@ -109,7 +109,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       handle = -1;
     };
   }, []);
-  //TODO: Rewrite. Low Priority
+
   const handleRefresh = async () => {
     if (!authState.loggedIn || !authState.token) {
       return;

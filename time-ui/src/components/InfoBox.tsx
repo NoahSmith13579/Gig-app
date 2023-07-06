@@ -67,14 +67,14 @@ const InfoBox: React.FC<InfoBoxProps> = ({
         </span>{' '}
         %
       </div>
-      <div>
-        Description:
-        {description?.length != null && (
+      {description?.length !== 0 && (
+        <div>
+          Description:
           <div className='card'>
             <h4>{description}</h4>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

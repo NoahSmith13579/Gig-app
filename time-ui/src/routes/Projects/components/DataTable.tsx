@@ -66,7 +66,7 @@ const DataTable = (
             <tr>
               <td>Id</td>
               <td>Name</td>
-              <td>Amount ($)</td>
+              <td style={{ whiteSpace: 'nowrap' }}>Amount ($)</td>
               <td>Date</td>
               <td></td>
             </tr>
