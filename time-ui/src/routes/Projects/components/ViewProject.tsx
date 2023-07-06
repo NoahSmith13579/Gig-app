@@ -18,6 +18,7 @@ import Handlers from '../../../handlers/ViewProjHandlers';
 import { StateContext } from '../../../contexts/StateContext';
 import ProjectState from '../../../entities/ProjectState';
 import DayTable from './DayTable';
+import { Link } from 'react-router-dom';
 
 interface ProjectParams {
   projectId: string;
@@ -82,7 +83,6 @@ const ViewProject: React.FC = () => {
     if (!loading && project !== data && hasBeenModified !== true) {
       dispatch({ type: 'set_modified', payload: { bool: true } });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.project]);
 
   const hasData = !loading && !!project;
@@ -208,7 +208,7 @@ const ViewProject: React.FC = () => {
         <div>To view or modify a project, please log in.</div>
       )}
 
-      <a href='/projects'>Back to Projects</a>
+      <Link to='/projects'>Back to Projects</Link>
     </div>
   );
 };
