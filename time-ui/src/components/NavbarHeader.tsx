@@ -17,13 +17,13 @@ const NavbarHeader: React.FC = () => {
       <div className='flex grow'>
         <ul className='flex grow align-center'>
           <li>
-            <Link to={'/dash'}>Dashboard</Link>
+            <Link to='/dash'>Dashboard</Link>
           </li>
           <li>
             <Link to='/projects'>Projects</Link>
           </li>
           <li>
-            <Link to='/Gig-app/about'>About</Link>
+            <Link to='/about'>About</Link>
           </li>
 
           {loggedIn ? (

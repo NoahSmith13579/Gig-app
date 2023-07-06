@@ -83,7 +83,6 @@ const ViewProject: React.FC = () => {
     if (!loading && project !== data && hasBeenModified !== true) {
       dispatch({ type: 'set_modified', payload: { bool: true } });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.project]);
 
   const hasData = !loading && !!project;
