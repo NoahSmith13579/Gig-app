@@ -24,7 +24,6 @@ const CurrencyBox: React.FC<CurrencyBoxProps> = ({
     setStringValue(value.toString());
   }, [value]);
 
-  //FIXME: Cannot add negative symbol
   const handleInputChange = (newVal: string) => {
     if (newVal.length < prefix.length) {
       return;

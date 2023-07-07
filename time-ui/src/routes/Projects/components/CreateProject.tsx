@@ -121,7 +121,7 @@ const CreateProject: React.FC = () => {
             value={name as string}
             onChange={handleOwnerChange}
             validate={validateOwner}
-            style={{ 'background-color': '#434853' }}
+            style={{ backgroundColor: '#434853' }}
             disabled={true}
           />
         </>

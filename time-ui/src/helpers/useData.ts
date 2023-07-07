@@ -27,8 +27,7 @@ const useData = <T>(
 
   return [err, loading, data];
 };
-
-//FIXME: This calls `func` twice. Maybe browser or router issue. Deemed to be low priority
+//TODO may be source of rerender issue
 const useService = <T>(
   func: (...args: any[]) => Promise<T>
 ): [boolean, boolean, T | null] => {

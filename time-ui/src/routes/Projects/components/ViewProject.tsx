@@ -32,6 +32,7 @@ const ViewProject: React.FC = () => {
   const authState = useAuth();
   const loggedin = authState.authState.loggedIn;
   let { state, dispatch } = useContext(StateContext);
+  //TODO May cause rerender issue, no real detrimental effect, low priority
   useEffect(() => {
     if (dataInit !== null) {
       const initialState = {
@@ -77,13 +78,13 @@ const ViewProject: React.FC = () => {
   const pageSize = 10;
   React.useEffect(() => {
     dispatch({ type: 'set_project', payload: { data: data } });
-  }, [state.data]);
+  }, [data]);
 
   React.useEffect(() => {
     if (!loading && project !== data && hasBeenModified !== true) {
       dispatch({ type: 'set_modified', payload: { bool: true } });
     }
-  }, [state.project]);
+  }, [project]);
 
   const hasData = !loading && !!project;
 

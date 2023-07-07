@@ -50,9 +50,9 @@ const DayTable: React.FC<DayTableProps> = (
           <thead>
             <tr>
               <td>Notes</td>
-              <td>StartTime</td>
-              <td>EndTime</td>
-              <td>Time Worked</td>
+              <td style={{ whiteSpace: 'nowrap' }}>Start Day</td>
+              <td>End Day</td>
+              <td style={{ whiteSpace: 'nowrap' }}>Time Worked</td>
             </tr>
           </thead>
           <tbody>
@@ -63,10 +63,14 @@ const DayTable: React.FC<DayTableProps> = (
                 )}
                 <tr>
                   <td>
-                    <button onClick={() => handleSetShowPopout(true)}>
-                      {dayWorked.notes.substring(0, 6)}
-                      ...
-                    </button>
+                    {dayWorked.notes.length !== 0 ? (
+                      <button onClick={() => handleSetShowPopout(true)}>
+                        {dayWorked.notes.substring(0, 6)}
+                        ...
+                      </button>
+                    ) : (
+                      ''
+                    )}
                   </td>
                   <td style={{ whiteSpace: 'nowrap' }}>
                     {dateFormatter(dayWorked.startDate)}
