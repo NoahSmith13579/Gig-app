@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useService } from '../../../helpers/useData';
 import Spinner from '../../../components/Spinner';
 import { getProject } from '../../../services/projectService';
 import InfoBox from '../../../components/InfoBox';

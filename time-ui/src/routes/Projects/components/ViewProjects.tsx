@@ -11,8 +11,7 @@ const ViewProject: React.FC = () => {
 
   return (
     <div>
-      <h1>These are the projects.</h1>
-      <h4>Project Data:</h4>
+      <h1>Projects</h1>
       {loading ? (
         <span>Loading...</span>
       ) : projects === null ? (

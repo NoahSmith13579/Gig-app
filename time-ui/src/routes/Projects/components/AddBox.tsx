@@ -70,8 +70,6 @@ const AddBox: React.FC<AddBoxProps> = ({ tableType }) => {
     }
     onAppend();
   };
-
-  // There could be some issue with how the functions are invoked
   return (
     <div className='flex col'>
       <ValidatedTextbox
