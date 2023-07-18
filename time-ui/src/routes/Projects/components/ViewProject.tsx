@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useService } from '../../../helpers/useData';
 import Spinner from '../../../components/Spinner';
@@ -19,6 +19,7 @@ import { StateContext } from '../../../contexts/StateContext';
 import ProjectState from '../../../entities/ProjectState';
 import DayTable from './DayTable';
 import { Link } from 'react-router-dom';
+import Project from '../../../entities/Project';
 
 interface ProjectParams {
   projectId: string;
@@ -26,17 +27,33 @@ interface ProjectParams {
 
 const ViewProject: React.FC = () => {
   const { projectId } = useParams<keyof ProjectParams>() as ProjectParams;
-  const [hasDataError, isloading, dataInit] = useService(() =>
-    getProject(projectId)
-  );
   const authState = useAuth();
   const loggedin = authState.authState.loggedIn;
   let { state, dispatch } = useContext(StateContext);
+  const [dataError, setDataError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [initData, setInitData] = useState<Project | null>(null);
+
   useEffect(() => {
-    if (dataInit !== null) {
+    async function getInitialData() {
+      await getProject(projectId)
+        .then((resp) => {
+          setInitData(resp);
+        })
+        .catch((err) => {
+          setDataError(err);
+        })
+        .finally(() => setIsLoading(false));
+    }
+    getInitialData();
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    if (initData !== null) {
       const initialState = {
         projectId: projectId,
-        project: dataInit,
+        project: initData,
         cost: getDefaultCost(),
         revenue: getDefaultRevenue(),
         dayWorked: getDefaultDay(),
@@ -47,16 +64,17 @@ const ViewProject: React.FC = () => {
         showDeletePopout: false,
         hasBeenModified: false,
         submitting: false,
-        dataError: hasDataError,
-        loading: isloading,
-        data: dataInit,
+        dataError: dataError,
+        loading: isLoading,
+        data: initData,
       } as ProjectState;
       dispatch({
         type: 'pageLoadState',
         payload: { onLoadState: initialState },
       });
     }
-  }, [dataInit, isloading]);
+    return () => {};
+  }, [initData, isLoading]);
 
   useEffect(() => {
     console.log('State: ', state);
@@ -77,12 +95,14 @@ const ViewProject: React.FC = () => {
   const pageSize = 10;
   React.useEffect(() => {
     dispatch({ type: 'set_project', payload: { data: data } });
+    return () => {};
   }, [state.data]);
 
   React.useEffect(() => {
     if (!loading && project !== data && hasBeenModified !== true) {
       dispatch({ type: 'set_modified', payload: { bool: true } });
     }
+    return () => {};
   }, [state.project]);
 
   const hasData = !loading && !!project;
