@@ -8,7 +8,7 @@ const Dashboard: React.FC = () => {
 
   const isNotReady = projLoad || !!projErr || projData === null;
   return (
-    <div>
+    <article className='flex grow block'>
       <h1>Dashboard</h1>
       <h4>Projects:</h4>
       {isNotReady ? (
@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
       ) : (
         <ProjectsList projects={projData} />
       )}
-    </div>
+    </article>
   );
 };
 

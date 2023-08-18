@@ -78,7 +78,7 @@ const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({ dayWorked }) => {
   }, [dayWorked.startDate, endDate]);
 
   return (
-    <div className='flex col'>
+    <section className='flex col'>
       <ValidatedTextbox
         label='Notes'
         value={dayWorked.notes}
@@ -106,7 +106,7 @@ const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({ dayWorked }) => {
         Time Worked: {delta} {delta === 1 ? 'hour' : 'hours'}
       </p>
 
-      <div className='flex'>
+      <section className='flex'>
         <button disabled={shouldDisableSubmit} onClick={handleSubmitDayBox}>
           Add
         </button>
@@ -116,8 +116,8 @@ const AddDayWorkedBox: React.FC<AddDateWorkedBoxProps> = ({ dayWorked }) => {
         >
           Cancel
         </button>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 

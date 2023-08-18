@@ -130,7 +130,7 @@ const ViewProject: React.FC = () => {
   ] = usePagination(!!project ? project.daysWorked : [], 10);
 
   return (
-    <div>
+    <article>
       {hasData && (
         <>
           <h2 className='mb-0'>{project.name}</h2>
@@ -162,8 +162,8 @@ const ViewProject: React.FC = () => {
             </>
           )}{' '}
           {hasData && (
-            <div className='flex row grow'>
-              <div className='card col'>
+            <article className='flex row grow'>
+              <section className='card col'>
                 <DataTable
                   currentData={currentDataCosts}
                   currentPage={currentPageCosts}
@@ -184,7 +184,7 @@ const ViewProject: React.FC = () => {
                   isSameUser={isSameUser}
                   tableType={'revenue'}
                 />
-              </div>
+              </section>
 
               <DayTable
                 currentData={currentDataDaysWorked}
@@ -195,10 +195,8 @@ const ViewProject: React.FC = () => {
                 showData={showDayWorked}
                 isSameUser={isSameUser}
               />
-              <div className='card ml-auto'>
-                <InfoBox project={project} />
-              </div>
-            </div>
+              <InfoBox project={project} />
+            </article>
           )}
           {showDeletePopout && (
             <PopOut
@@ -228,7 +226,7 @@ const ViewProject: React.FC = () => {
       )}
 
       <Link to='/projects'>Back to Projects</Link>
-    </div>
+    </article>
   );
 };
 

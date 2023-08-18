@@ -8,7 +8,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
-    <div className='card'>
+    <li className='card'>
       <Link to={`/projects/${project.id}`}>
         <span className='title'>{project.name}</span>
       </Link>
@@ -20,7 +20,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </b>
         : {project.owner}
       </span>
-    </div>
+    </li>
   );
 };
 

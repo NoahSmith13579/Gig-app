@@ -10,11 +10,10 @@ const NavbarHeader: React.FC = () => {
   const loggedIn = auth.loggedIn;
 
   return (
-    <nav>
-      <div className='flex'>
-        <span className='brand'>Gig app v2</span>
-      </div>
-      <div className='flex grow'>
+    <header>
+      <span className='brand'>Gig app v2</span>
+
+      <nav className='flex grow'>
         <ul className='flex grow align-center'>
           <li>
             <Link to='/dash'>Dashboard</Link>
@@ -37,8 +36,8 @@ const NavbarHeader: React.FC = () => {
             <li className='ml-auto'>{<LoginButton />}</li>
           )}
         </ul>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 

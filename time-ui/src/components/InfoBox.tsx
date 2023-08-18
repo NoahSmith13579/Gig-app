@@ -20,62 +20,66 @@ const InfoBox: React.FC<InfoBoxProps> = ({
   const revenues = profit.revenues;
 
   return (
-    <div>
-      <div>
-        Total Revenue: ${' '}
-        <span className={conditionalFormattingIB(calcTRev(revenues))}>
-          {calcTRev(revenues)}
-        </span>
-      </div>
-      <div>
-        Total Cost: ${' '}
-        <span className={conditionalFormattingIB(calcTCost(costs))}>
-          {calcTCost(costs)}
-        </span>
-      </div>
-      <div>
-        Profit: ${' '}
-        <span className={conditionalFormattingIB(calcProfit(costs, revenues))}>
-          {calcProfit(costs, revenues)}
-        </span>
-      </div>
-      <div>
-        Total Time Worked: {calcTTimeWorked(daysWorked)}{' '}
-        {calcProfitPerHour(costs, revenues, daysWorked) === 1
-          ? 'hour'
-          : 'hours'}
-      </div>
-      <div>
-        {' '}
-        Profit per Hour: ${' '}
-        <span
-          className={conditionalFormattingIB(
-            calcProfitPerHour(costs, revenues, daysWorked)
-          )}
-        >
-          {calcProfitPerHour(costs, revenues, daysWorked)}
-        </span>
-      </div>
-      <div>
-        ROI:{' '}
-        <span
-          className={conditionalFormattingIB(
-            calcReturnOnInvestment(costs, revenues)
-          )}
-        >
-          {calcReturnOnInvestment(costs, revenues)}
-        </span>{' '}
-        %
-      </div>
-      {description?.length !== 0 && (
-        <div>
-          Description:
-          <div className='card'>
-            <h4>{description}</h4>
-          </div>
-        </div>
-      )}
-    </div>
+    <section className='card ml-auto'>
+      <ul className='no-list-style'>
+        <li>
+          Total Revenue: ${' '}
+          <span className={conditionalFormattingIB(calcTRev(revenues))}>
+            {calcTRev(revenues)}
+          </span>
+        </li>
+        <li>
+          Total Cost: ${' '}
+          <span className={conditionalFormattingIB(calcTCost(costs))}>
+            {calcTCost(costs)}
+          </span>
+        </li>
+        <li>
+          Profit: ${' '}
+          <span
+            className={conditionalFormattingIB(calcProfit(costs, revenues))}
+          >
+            {calcProfit(costs, revenues)}
+          </span>
+        </li>
+        <li>
+          Total Time Worked: {calcTTimeWorked(daysWorked)}{' '}
+          {calcProfitPerHour(costs, revenues, daysWorked) === 1
+            ? 'hour'
+            : 'hours'}
+        </li>
+        <li>
+          {' '}
+          Profit per Hour: ${' '}
+          <span
+            className={conditionalFormattingIB(
+              calcProfitPerHour(costs, revenues, daysWorked)
+            )}
+          >
+            {calcProfitPerHour(costs, revenues, daysWorked)}
+          </span>
+        </li>
+        <li>
+          ROI:{' '}
+          <span
+            className={conditionalFormattingIB(
+              calcReturnOnInvestment(costs, revenues)
+            )}
+          >
+            {calcReturnOnInvestment(costs, revenues)}
+          </span>{' '}
+          %
+        </li>
+        {description?.length !== 0 && (
+          <li>
+            Description:
+            <div className='card'>
+              <h5>{description}</h5>
+            </div>
+          </li>
+        )}
+      </ul>
+    </section>
   );
 };
 

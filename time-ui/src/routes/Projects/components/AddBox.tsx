@@ -71,7 +71,7 @@ const AddBox: React.FC<AddBoxProps> = ({ tableType }) => {
     onAppend();
   };
   return (
-    <div className='flex col'>
+    <section className='flex col'>
       <ValidatedTextbox
         label='Name'
         value={boxValue.name}
@@ -90,7 +90,7 @@ const AddBox: React.FC<AddBoxProps> = ({ tableType }) => {
         onChange={(e) => onChange({ ...boxValue, date: e })}
         validate={() => ''}
       />
-      <div className='flex'>
+      <section className='flex'>
         <button disabled={shouldDisableSubmit} onClick={handleSubmitbox}>
           Add
         </button>
@@ -100,8 +100,8 @@ const AddBox: React.FC<AddBoxProps> = ({ tableType }) => {
         >
           Cancel
         </button>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 

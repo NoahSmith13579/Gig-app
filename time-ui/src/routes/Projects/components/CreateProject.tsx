@@ -72,6 +72,8 @@ const CreateProject: React.FC = () => {
 
   const validateName = () => {
     if (projectName.length < 1) return 'Project name must not be empty';
+    if (projectName.length > 50)
+      return 'Project name must be less than 50 characters';
     return '';
   };
 
@@ -95,7 +97,7 @@ const CreateProject: React.FC = () => {
   };
 
   return (
-    <div className='flex col'>
+    <article className='flex col'>
       <h2>Create a new project</h2>
 
       {loading ? (
@@ -131,7 +133,7 @@ const CreateProject: React.FC = () => {
       <button disabled={loading} onClick={handleSubmit}>
         Submit
       </button>
-    </div>
+    </article>
   );
 };
 

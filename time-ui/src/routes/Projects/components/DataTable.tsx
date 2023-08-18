@@ -56,11 +56,11 @@ const DataTable = (
   }
 
   return (
-    <div>
+    <>
       <p className='m-1'>
         {tableType.charAt(0).toUpperCase() + tableType.slice(1)}s:
       </p>
-      <div className='card'>
+      <section className='card'>
         <table>
           <thead>
             <tr>
@@ -111,8 +111,8 @@ const DataTable = (
             Add New {tableType}
           </button>
         )}
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 

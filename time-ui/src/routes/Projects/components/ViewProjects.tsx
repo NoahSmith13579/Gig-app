@@ -10,7 +10,7 @@ const ViewProject: React.FC = () => {
   const [, loading, projects] = useService(getProjects);
 
   return (
-    <div>
+    <article>
       <h1>Projects</h1>
       {loading ? (
         <span>Loading...</span>
@@ -31,7 +31,7 @@ const ViewProject: React.FC = () => {
       >
         Create a new project.
       </button>
-    </div>
+    </article>
   );
 };
 

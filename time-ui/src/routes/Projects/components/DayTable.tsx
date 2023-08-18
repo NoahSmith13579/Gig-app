@@ -43,9 +43,9 @@ const DayTable: React.FC<DayTableProps> = (
   const { showPopout, dayWorked } = state;
 
   return (
-    <div className='card'>
+    <section className='card'>
       <p className='m-1'>Days Worked:</p>
-      <div className='card'>
+      <section className='card'>
         <table>
           <thead>
             <tr>
@@ -113,8 +113,8 @@ const DayTable: React.FC<DayTableProps> = (
             Add New Day Worked
           </button>
         )}
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 export default DayTable;

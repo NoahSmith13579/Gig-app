@@ -54,7 +54,7 @@ const Pagination = <T extends unknown>(
     currentPage + 3 <= pageCount;
 
   return (
-    <div className='pageNav'>
+    <section className='pageNav'>
       {isGreaterThan4 && (
         <button className=' pageNavL' onClick={() => goToPage(1)}>
           <ChevronLeft /> First
@@ -89,7 +89,7 @@ const Pagination = <T extends unknown>(
           Last <ChevronRight />
         </button>
       )}
-    </div>
+    </section>
   );
 };
 

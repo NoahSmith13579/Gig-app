@@ -14,7 +14,7 @@ const ListProjectCards: React.FC<ListProjectCardsProps> = ({ projects }) => {
 
   console.log('loggedin: ', loggedIn);
   return loggedIn ? (
-    <div className='cards'>
+    <ul className='cards no-list-style'>
       {projects.map((project) =>
         project.ownerid === userid ? (
           <ProjectCard key={project.id} project={project} />
@@ -22,7 +22,7 @@ const ListProjectCards: React.FC<ListProjectCardsProps> = ({ projects }) => {
           ''
         )
       )}
-    </div>
+    </ul>
   ) : (
     <div>
       {' '}

@@ -31,7 +31,7 @@ body,
   color: var(--colour-red);
 }
 
-nav {
+header {
   display: flex;
   width: 100%;
   align-items: center;
@@ -39,11 +39,7 @@ nav {
   border-bottom: 5px solid var(--colour-green);
 }
 
-nav > div {
-  display: flex;
-}
-
-nav a {
+header a {
   color: var(--colour-green);
 
   text-decoration: none;
@@ -51,20 +47,23 @@ nav a {
   font-weight: bold;
 }
 
-nav a:hover {
+header a:hover {
   text-decoration: none;
 }
 
-nav ul {
+header ul {
   list-style: none;
   padding: 0;
 }
 
-nav li {
+header li {
   margin-left: 1rem;
   margin-right: 1rem;
 }
 
+article h1 {
+  font-size: 2em;
+}
 a {
   color: inherit;
   text-decoration: underline;
@@ -76,7 +75,7 @@ a:hover {
 }
 
 .brand {
-  font-size: 56px;
+  font-size: 52px;
   font-weight: bold;
 
   margin-left: 2rem;
@@ -92,7 +91,8 @@ main {
   padding-right: 5rem;
 }
 
-main > div {
+main > div,
+main > article {
   flex-grow: 1;
 }
 
@@ -363,4 +363,17 @@ Modal
 
 .ml-auto {
   margin-left: auto;
+}
+
+.block {
+  display: block;
+}
+
+.no-list-style {
+  list-style: none;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
 }

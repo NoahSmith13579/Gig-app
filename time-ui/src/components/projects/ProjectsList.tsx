@@ -12,7 +12,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({ projects }) => {
     authState: { userid },
   } = useContext(AuthContext);
   return (
-    <div className='card'>
+    <article className='card'>
       <table>
         <thead>
           <tr>
@@ -39,7 +39,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({ projects }) => {
           )}
         </tbody>
       </table>
-    </div>
+    </article>
   );
 };
 

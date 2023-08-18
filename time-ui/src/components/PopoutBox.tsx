@@ -31,8 +31,8 @@ const PopoutBox: React.FC<PopoutBoxProps> = ({
 
   return onConfirmDelete ? (
     <>
-      <div className='modal' onClick={handlePopoutClickOutsideDelete}>
-        <div className='modal-content'>
+      <article className='modal' onClick={handlePopoutClickOutsideDelete}>
+        <section className='modal-content'>
           <h1>{title}</h1>
           <hr />
           <p>{body}</p>
@@ -48,21 +48,21 @@ const PopoutBox: React.FC<PopoutBoxProps> = ({
               Confirm Delete
             </button>
           </div>
-        </div>
-      </div>
+        </section>
+      </article>
     </>
   ) : (
     <>
-      <div className='modal' onClick={handlePopoutClickOutside}>
-        <div className='modal-content'>
+      <article className='modal' onClick={handlePopoutClickOutside}>
+        <section className='modal-content'>
           <h1>{title}</h1>
           <hr />
           <p>{body}</p>
           <div className='flex'>
             <button onClick={() => close}>Close</button>
           </div>
-        </div>
-      </div>
+        </section>
+      </article>
     </>
   );
 };
