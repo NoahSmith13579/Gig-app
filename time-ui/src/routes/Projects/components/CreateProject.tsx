@@ -98,7 +98,7 @@ const CreateProject: React.FC = () => {
 
   return (
     <article className='flex col'>
-      <h2>Create a new project</h2>
+      <h1>Create a new project</h1>
 
       {loading ? (
         <Spinner />

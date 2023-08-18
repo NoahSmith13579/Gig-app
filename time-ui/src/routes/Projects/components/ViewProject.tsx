@@ -133,7 +133,7 @@ const ViewProject: React.FC = () => {
     <article>
       {hasData && (
         <>
-          <h2 className='mb-0'>{project.name}</h2>
+          <h1 className='mb-0'>{project.name}</h1>
           <p className='subtitle p-0'>Owned by {project.owner}</p>
         </>
       )}

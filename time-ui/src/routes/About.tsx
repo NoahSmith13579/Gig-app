@@ -1,6 +1,6 @@
 const About: React.FC = () => {
   return (
-    <div>
+    <article>
       <h1>About</h1>
       <p style={{ width: '60% ' }}>
         This is a small application for tracking expenses and revenues for
@@ -8,7 +8,7 @@ const About: React.FC = () => {
         delivering food on the side, this application can be used to help track
         and calculate various financial aspects of your project or hobby.{' '}
       </p>
-    </div>
+    </article>
   );
 };
 

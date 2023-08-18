@@ -4,7 +4,11 @@ import { AuthContext } from '../contexts/AuthContext';
 const LogoutButton: React.FC = () => {
   const { logout } = useContext(AuthContext);
 
-  return <button onClick={() => logout()}>Sign Out</button>;
+  return (
+    <button onClick={() => logout()} style={{ color: 'black' }}>
+      Sign Out
+    </button>
+  );
 };
 
 export default LogoutButton;
