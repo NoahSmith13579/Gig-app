@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Gig-app/static/css/main.31c3ec8a.css",
-    "main.js": "/Gig-app/static/js/main.ab550faa.js",
+    "main.css": "/Gig-app/static/css/main.687a8037.css",
+    "main.js": "/Gig-app/static/js/main.b0163f7c.js",
     "static/js/787.28cb0dcd.chunk.js": "/Gig-app/static/js/787.28cb0dcd.chunk.js",
     "index.html": "/Gig-app/index.html",
-    "main.31c3ec8a.css.map": "/Gig-app/static/css/main.31c3ec8a.css.map",
-    "main.ab550faa.js.map": "/Gig-app/static/js/main.ab550faa.js.map",
+    "main.687a8037.css.map": "/Gig-app/static/css/main.687a8037.css.map",
+    "main.b0163f7c.js.map": "/Gig-app/static/js/main.b0163f7c.js.map",
     "787.28cb0dcd.chunk.js.map": "/Gig-app/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.31c3ec8a.css",
-    "static/js/main.ab550faa.js"
+    "static/css/main.687a8037.css",
+    "static/js/main.b0163f7c.js"
   ]
 }
