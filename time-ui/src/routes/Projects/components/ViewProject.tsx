@@ -162,7 +162,7 @@ const ViewProject: React.FC = () => {
             </>
           )}{' '}
           {hasData && (
-            <article className='flex row grow'>
+            <article className='flex row grow' id='project-article'>
               <section className='card col'>
                 <DataTable
                   currentData={currentDataCosts}

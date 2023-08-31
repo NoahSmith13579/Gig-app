@@ -60,6 +60,25 @@ header li {
   margin-left: 1rem;
   margin-right: 1rem;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
 article h1 {
   font-size: 2em;
@@ -213,6 +232,10 @@ td {
 thead tr td {
   font-weight: bold;
   padding-left: 0.4rem;
+}
+
+#about-body {
+  width: 60%;
 }
 
 .spinner {
@@ -376,4 +399,80 @@ Modal
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 0px;
+}
+/*
+* Medium sized screen
+*/
+
+@media screen and (max-width: 900px) {
+  header {
+    flex-direction: column;
+  }
+
+  header nav ul {
+    flex-direction: column;
+  }
+  header nav li {
+    font-size: 14px;
+    padding-bottom: 10px;
+  }
+
+  header nav li:last-child {
+    margin-left: 1rem;
+  }
+
+  header .brand {
+    border-right: none;
+  }
+  #project-article {
+    flex-direction: column;
+  }
+  #project-article section:last-child {
+    margin-left: 1rem;
+  }
+}
+
+/*
+* Small sized screen
+*/
+
+@media screen and (max-width: 580px) {
+  html {
+    font-size: 10px;
+  }
+  header {
+    flex-direction: column;
+  }
+
+  header nav ul {
+    flex-direction: column;
+  }
+  header nav li {
+    padding-bottom: 10px;
+    font-size: 14px;
+  }
+
+  header nav li:last-child {
+    margin-left: 1rem;
+  }
+
+  header .brand {
+    border-right: none;
+  }
+
+  #project-article {
+    flex-direction: column;
+  }
+
+  #project-article section:last-child {
+    margin-left: 1rem;
+  }
+
+  #infobox-desc {
+    font-size: 1.5rem;
+  }
+  #about-body {
+    font-size: 1.5rem;
+    width: 100%;
+  }
 }

@@ -19,61 +19,52 @@ const InfoBox: React.FC<InfoBoxProps> = ({
   const costs = profit.costs;
   const revenues = profit.revenues;
 
+  const totalRevenue = calcTRev(revenues);
+  const totalCost = calcTCost(costs);
+  const totalProfit = calcProfit(costs, revenues);
+  const totalTimeWorked = calcTTimeWorked(daysWorked);
+  const ProfitPerHour = calcProfitPerHour(costs, revenues, daysWorked);
+  const ROI = calcReturnOnInvestment(costs, revenues);
+
   return (
     <section className='card ml-auto'>
       <ul className='no-list-style'>
         <li>
           Total Revenue: ${' '}
-          <span className={conditionalFormattingIB(calcTRev(revenues))}>
-            {calcTRev(revenues)}
+          <span className={conditionalFormattingIB(totalRevenue)}>
+            {totalRevenue}
           </span>
         </li>
         <li>
           Total Cost: ${' '}
-          <span className={conditionalFormattingIB(calcTCost(costs))}>
-            {calcTCost(costs)}
+          <span className={conditionalFormattingIB(-totalCost)}>
+            {totalCost}
           </span>
         </li>
         <li>
           Profit: ${' '}
-          <span
-            className={conditionalFormattingIB(calcProfit(costs, revenues))}
-          >
-            {calcProfit(costs, revenues)}
+          <span className={conditionalFormattingIB(totalProfit)}>
+            {totalProfit}
           </span>
         </li>
         <li>
-          Total Time Worked: {calcTTimeWorked(daysWorked)}{' '}
-          {calcProfitPerHour(costs, revenues, daysWorked) === 1
-            ? 'hour'
-            : 'hours'}
+          Total Time Worked: {totalTimeWorked}{' '}
+          {ProfitPerHour === 1 ? 'hour' : 'hours'}
         </li>
         <li>
           {' '}
           Profit per Hour: ${' '}
-          <span
-            className={conditionalFormattingIB(
-              calcProfitPerHour(costs, revenues, daysWorked)
-            )}
-          >
-            {calcProfitPerHour(costs, revenues, daysWorked)}
+          <span className={conditionalFormattingIB(ProfitPerHour)}>
+            {Math.abs(ProfitPerHour) === Infinity ? 'N/A' : ProfitPerHour}
           </span>
         </li>
         <li>
-          ROI:{' '}
-          <span
-            className={conditionalFormattingIB(
-              calcReturnOnInvestment(costs, revenues)
-            )}
-          >
-            {calcReturnOnInvestment(costs, revenues)}
-          </span>{' '}
-          %
+          ROI: <span className={conditionalFormattingIB(ROI)}>{ROI}</span> %
         </li>
         {description?.length !== 0 && (
           <li>
             Description:
-            <div className='card'>
+            <div className='card' id='infobox-desc'>
               <h5>{description}</h5>
             </div>
           </li>

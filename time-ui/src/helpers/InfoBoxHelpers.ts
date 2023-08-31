@@ -42,7 +42,6 @@ const calcProfitPerHour = (
   if (isNaN(ProfitPerHour)) {
     ProfitPerHour = 0;
   }
-
   return ProfitPerHour;
 };
 
