@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Gig-app/static/css/main.746a54db.css",
-    "main.js": "/Gig-app/static/js/main.74842cf4.js",
-    "static/js/787.28cb0dcd.chunk.js": "/Gig-app/static/js/787.28cb0dcd.chunk.js",
+    "main.css": "/Gig-app/static/css/main.3f939401.css",
+    "main.js": "/Gig-app/static/js/main.9159f400.js",
+    "static/js/453.68693753.chunk.js": "/Gig-app/static/js/453.68693753.chunk.js",
     "index.html": "/Gig-app/index.html",
-    "main.746a54db.css.map": "/Gig-app/static/css/main.746a54db.css.map",
-    "main.74842cf4.js.map": "/Gig-app/static/js/main.74842cf4.js.map",
-    "787.28cb0dcd.chunk.js.map": "/Gig-app/static/js/787.28cb0dcd.chunk.js.map"
+    "main.3f939401.css.map": "/Gig-app/static/css/main.3f939401.css.map",
+    "main.9159f400.js.map": "/Gig-app/static/js/main.9159f400.js.map",
+    "453.68693753.chunk.js.map": "/Gig-app/static/js/453.68693753.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.746a54db.css",
-    "static/js/main.74842cf4.js"
+    "static/css/main.3f939401.css",
+    "static/js/main.9159f400.js"
   ]
 }
