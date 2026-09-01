@@ -10,7 +10,7 @@ import { createProject } from '../../../services/projectService';
 const CreateProject: React.FC = () => {
   const navigate = useNavigate();
   const {
-    authState: { userid, loggedIn, name },
+    authState: { userid, loggedIn, name, isAnonymous },
   } = useAuth();
 
   const [loading, setLoading] = React.useState(false);
@@ -18,6 +18,9 @@ const CreateProject: React.FC = () => {
   const [projectName, setProjectName] = React.useState('');
   const [projectDesc, setDesc] = React.useState('');
   const [projectOwner, setOwner] = React.useState(name as string);
+
+  // Check if user can create projects (either logged in or in anonymous/offline mode)
+  const canCreateProject = loggedIn || isAnonymous;
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -33,7 +36,7 @@ const CreateProject: React.FC = () => {
     }
 
     const payload: Project = {
-      id: '',
+      id: isAnonymous ? `offline_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` : '',
       name: projectName,
       description: projectDesc,
       owner: projectOwner,
@@ -102,7 +105,7 @@ const CreateProject: React.FC = () => {
 
       {loading ? (
         <Spinner />
-      ) : loggedIn ? (
+      ) : canCreateProject ? (
         <>
           <ValidatedTextbox
             label='Project Name'

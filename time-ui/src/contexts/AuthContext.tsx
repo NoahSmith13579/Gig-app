@@ -15,6 +15,7 @@ interface AuthState {
   name: string | null;
   loggedIn: boolean;
   token: string | null;
+  isAnonymous: boolean;
 }
 interface Token {
   email: string;
@@ -27,7 +28,8 @@ interface Token {
 interface AuthContextContainer {
   authState: AuthState;
   login(): Promise<string>;
-  logout(): void;
+  logout(clearLocalData?: boolean): void;
+  useAnonymous(): void;
 }
 
 interface AuthProviderProps {
@@ -40,6 +42,16 @@ const getUnauthstate = (): AuthState => ({
   email: null,
   name: null,
   token: null,
+  isAnonymous: false,
+});
+
+const getInitialAnonymousState = (): AuthState => ({
+  userid: 'anonymous',
+  loggedIn: false,
+  email: null,
+  name: 'Anonymous User',
+  token: null,
+  isAnonymous: true,
 });
 
 const AuthContext = React.createContext<AuthContextContainer>({
@@ -47,6 +59,8 @@ const AuthContext = React.createContext<AuthContextContainer>({
   login: async () => 'default',
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   logout: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  useAnonymous: () => {},
 });
 
 const REFRESH_TIMEOUT = 2 * 60 * 1000;
@@ -85,7 +99,7 @@ const { log, debug, error } = makeLog('auth');
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authState, setAuthState] = useLocalStorage<AuthState>(
     'authState',
-    getUnauthstate()
+    getInitialAnonymousState()
   );
 
   React.useEffect(() => {
@@ -175,6 +189,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       email,
       token: content,
       loggedIn: true,
+      isAnonymous: false,
     };
     setAuthState(newState);
     return 'Success!';
@@ -192,13 +207,29 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return '';
   };
 
-  const logout = () => {
-    setAuthState(getUnauthstate());
+  const logout = (clearLocalData: boolean = false) => {
+    if (clearLocalData) {
+      localStorage.removeItem('anonymous_projects');
+    }
+    // Return to anonymous mode instead of fully logged out
+    setAuthState(getInitialAnonymousState());
     toast.error('Logged out...', { toastId: 'LoggedOut' });
   };
 
+  const useAnonymous = () => {
+    log('Using app in anonymous mode with local storage');
+    setAuthState({
+      userid: 'anonymous',
+      loggedIn: false,
+      email: null,
+      name: 'Anonymous User',
+      token: null,
+      isAnonymous: true,
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ authState, login: login, logout }}>
+    <AuthContext.Provider value={{ authState, login: login, logout, useAnonymous }}>
       {children}
     </AuthContext.Provider>
   );

@@ -9,11 +9,12 @@ interface ListProjectCardsProps {
 
 const ListProjectCards: React.FC<ListProjectCardsProps> = ({ projects }) => {
   const {
-    authState: { loggedIn, userid },
+    authState: { loggedIn, userid, isAnonymous },
   } = useContext(AuthContext);
 
-  console.log('loggedin: ', loggedIn);
-  return loggedIn ? (
+  const canViewProjects = loggedIn || isAnonymous;
+
+  return canViewProjects ? (
     <ul className='cards no-list-style'>
       {projects.map((project) =>
         project.ownerid === userid ? (

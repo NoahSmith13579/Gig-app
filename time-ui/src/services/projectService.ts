@@ -16,16 +16,16 @@ const formatProjectDates = (project: Project): Project => {
       ...project.profit,
       costs: project.profit.costs.map((cost) => ({
         ...cost,
-        date: new Date(cost.date as unknown as string),
+        date: cost.date instanceof Date ? cost.date : new Date(cost.date as unknown as string),
       })),
       revenues: project.profit.revenues.map((revenue) => ({
         ...revenue,
-        date: new Date(revenue.date as unknown as string),
+        date: revenue.date instanceof Date ? revenue.date : new Date(revenue.date as unknown as string),
       })),
     },
     daysWorked: project.daysWorked.map((Daysworked) => ({
       ...Daysworked,
-      startDate: new Date(Daysworked.startDate as unknown as string),
+      startDate: Daysworked.startDate instanceof Date ? Daysworked.startDate : new Date(Daysworked.startDate as unknown as string),
     })),
   };
 };
@@ -53,7 +53,7 @@ const getProjects = async (): Promise<Project[]> => {
 
   const resp = await doRequest<Project[]>('/api/projects', {});
 
-  return resp.content;
+  return resp.content.map(formatProjectDates);
 };
 
 /**
@@ -91,7 +91,7 @@ const deleteProject = async (project: Project): Promise<Project> => {
   debug(`DeleteProject(${project.id})`);
   await doRequest<Project>(`/api/projects/${project.id}`, {
     body: project,
-    method: 'Delete',
+    method: 'DELETE',
   });
   return formatProjectDates(project);
 };
