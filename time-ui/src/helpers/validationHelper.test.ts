@@ -42,15 +42,19 @@ describe('validation helpers', () => {
     );
 
     expect(isReversedValid).toBe(false);
-    expect(validateReversed()).toBe(
+    expect(
+      validateReversed(start, new Date('2024-01-01T09:59:59.000Z'))
+    ).toBe(
       'End date and time must be after start date and time'
     );
     expect(isEqualValid).toBe(false);
-    expect(validateEqual()).toBe(
+    expect(validateEqual(start, start)).toBe(
       'End date and time must be after start date and time'
     );
     expect(isForwardValid).toBe(true);
-    expect(validateForward()).toBe('');
+    expect(validateForward(start, new Date('2024-01-01T10:00:01.000Z'))).toBe(
+      ''
+    );
   });
 
   it('allows notes up to 50 characters and rejects longer notes', () => {
