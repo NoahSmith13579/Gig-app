@@ -15,7 +15,6 @@ import {
 } from '../../../helpers/getDefault';
 import Handlers from '../../../handlers/ViewProjHandlers';
 import { StateContext } from '../../../contexts/StateContext';
-import ProjectState from '../../../entities/ProjectState';
 import DayTable from './DayTable';
 import Project from '../../../entities/Project';
 
@@ -30,49 +29,56 @@ const ViewProject: React.FC = () => {
   const isAnonymous = authState.authState.isAnonymous;
   const canViewProject = loggedin || isAnonymous;
   const { state, dispatch } = useContext(StateContext);
-  const [dataError, setDataError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [initData, setInitData] = useState<Project | null>(null);
+  const [requestStatus, setRequestStatus] = useState({
+    projectId: '',
+    loading: true,
+    error: false,
+  });
 
   useEffect(() => {
+    let cancelled = false;
+
     async function getInitialData() {
       await getProject(projectId)
-        .then((resp) => {
-          setInitData(resp);
-        })
-        .catch((err) => {
-          setDataError(err);
-        })
-        .finally(() => setIsLoading(false));
-    }
-    getInitialData();
-  }, [projectId]);
+        .then((project) => {
+          if (cancelled) return;
 
-  useEffect(() => {
-    if (initData !== null) {
-      const initialState = {
-        projectId: projectId,
-        project: initData,
-        cost: getDefaultCost(),
-        revenue: getDefaultRevenue(),
-        dayWorked: getDefaultDay(),
-        showCost: false,
-        showRevenue: false,
-        showDayWorked: false,
-        showPopout: false,
-        showDeletePopout: false,
-        hasBeenModified: false,
-        submitting: false,
-        dataError: dataError,
-        loading: false,
-        data: initData,
-      } as ProjectState;
-      dispatch({
-        type: 'pageLoadState',
-        payload: { onLoadState: initialState },
-      });
+          dispatch({
+            type: 'pageLoadState',
+            payload: {
+              onLoadState: {
+                projectId,
+                project,
+                cost: getDefaultCost(),
+                revenue: getDefaultRevenue(),
+                dayWorked: getDefaultDay(),
+                showCost: false,
+                showRevenue: false,
+                showDayWorked: false,
+                showPopout: false,
+                showDeletePopout: false,
+                hasBeenModified: false,
+                submitting: false,
+                dataError: false,
+                loading: false,
+                data: project,
+              },
+            },
+          });
+          setRequestStatus({ projectId, loading: false, error: false });
+        })
+        .catch(() => {
+          if (!cancelled) {
+            setRequestStatus({ projectId, loading: false, error: true });
+          }
+        });
     }
-  }, [initData]);
+
+    getInitialData();
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId, dispatch]);
 
   const {
     project,
@@ -97,7 +103,15 @@ const ViewProject: React.FC = () => {
     hasBeenModified,
   ]);
 
-  const hasData = !loading && !!project;
+  const hasData =
+    !loading &&
+    !requestStatus.loading &&
+    state.projectId === projectId &&
+    !!project;
+  const isProjectLoading =
+    loading ||
+    requestStatus.loading ||
+    requestStatus.projectId !== projectId;
   const isSameUser =
     project !== null &&
     (project.ownerid === authState.authState.userid ||
@@ -155,17 +169,15 @@ const ViewProject: React.FC = () => {
           </div>
         </div>
       )}
-      {loading && (
+      {isProjectLoading && (
         <div className='loading-state'>
           <h4>Getting project data</h4>
           <Spinner />
         </div>
       )}
-      {!loading && project === null && !isLoading && (
+      {!isProjectLoading && requestStatus.error && (
         <div className='empty-state'>
-          {dataError
-            ? 'Project data could not be loaded.'
-            : 'Project data could not be found.'}
+          Project data could not be loaded.
         </div>
       )}
       {canViewProject ? (
