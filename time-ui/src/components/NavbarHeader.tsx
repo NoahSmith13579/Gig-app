@@ -2,41 +2,61 @@ import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import LoginButton from './loginButton';
 import LogoutButton from './LogoutButton';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useTheme } from '../contexts/ThemeContext';
 
 const NavbarHeader: React.FC = () => {
   const { authState: auth } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const loggedIn = auth.loggedIn;
 
   return (
     <header>
-      <span className='brand'>Gig app v2</span>
+      <Link className='brand' to='/about' aria-label='Gig app home'>
+        <span className='brand-mark' aria-hidden='true'>
+          G
+        </span>
+        <span>Gig app</span>
+      </Link>
 
-      <nav className='flex grow'>
-        <ul className='flex grow align-center'>
+      <nav className='grow' aria-label='Main navigation'>
+        <ul>
           <li>
-            <Link to='/dash'>Dashboard</Link>
+            <NavLink to='/dash'>Dashboard</NavLink>
           </li>
           <li>
-            <Link to='/projects'>Projects</Link>
+            <NavLink to='/projects'>Projects</NavLink>
           </li>
           <li>
-            <Link to='/about'>About</Link>
+            <NavLink to='/about'>About</NavLink>
           </li>
-
-          {loggedIn ? (
-            <>
-              <li className='ml-auto'>
-                <span>Hello {auth.name}</span>
-              </li>
-              <li>{<LogoutButton />}</li>
-            </>
-          ) : (
-            <li className='ml-auto'>{<LoginButton />}</li>
-          )}
         </ul>
       </nav>
+
+      <div className='nav-account'>
+        <button
+          className='theme-toggle'
+          type='button'
+          role='switch'
+          aria-checked={theme === 'dark'}
+          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          onClick={toggleTheme}
+        >
+          <span className='theme-toggle-icon' aria-hidden='true'>
+            {theme === 'light' ? '☾' : '☀'}
+          </span>
+          <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
+        </button>
+        {loggedIn ? (
+          <>
+            <span className='nav-greeting'>Hello, {auth.name}</span>
+            <LogoutButton />
+          </>
+        ) : (
+          <LoginButton />
+        )}
+      </div>
     </header>
   );
 };

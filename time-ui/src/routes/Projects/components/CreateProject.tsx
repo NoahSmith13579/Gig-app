@@ -100,13 +100,20 @@ const CreateProject: React.FC = () => {
   };
 
   return (
-    <article className='flex col'>
-      <h1>Create a new project</h1>
+    <article className='create-project-page'>
+      <div className='page-heading'>
+        <div className='heading-copy'>
+          <h1>Create a project</h1>
+          <p className='page-intro'>
+            Start a new space to track project income, costs, and time.
+          </p>
+        </div>
+      </div>
 
       {loading ? (
         <Spinner />
       ) : canCreateProject ? (
-        <>
+        <section className='card form-card'>
           <ValidatedTextbox
             label='Project Name'
             value={projectName}
@@ -126,16 +133,17 @@ const CreateProject: React.FC = () => {
             value={name as string}
             onChange={handleOwnerChange}
             validate={validateOwner}
-            style={{ backgroundColor: '#434853' }}
             disabled={true}
           />
-        </>
+          <div className='form-actions'>
+            <button disabled={loading} onClick={handleSubmit}>
+              Create project
+            </button>
+          </div>
+        </section>
       ) : (
-        <div> To create a new project, please log in. </div>
+        <div className='notice'>To create a project, please log in.</div>
       )}
-      <button disabled={loading} onClick={handleSubmit}>
-        Submit
-      </button>
     </article>
   );
 };

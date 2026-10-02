@@ -10,27 +10,29 @@ const ViewProject: React.FC = () => {
   const [, loading, projects] = useService(getProjects);
 
   return (
-    <article>
-      <h1>Projects</h1>
+    <article className='projects-page'>
+      <div className='page-heading'>
+        <div className='heading-copy'>
+          <h1>Projects</h1>
+          <p className='page-intro'>
+            Keep the work, costs, and progress of every side project in one
+            place.
+          </p>
+        </div>
+        <button
+          className='primary-action'
+          onClick={() => navigate('/projects/create')}
+        >
+          Create project
+        </button>
+      </div>
       {loading ? (
         <span>Loading...</span>
       ) : projects === null ? (
-        <p>No projects</p>
+        <div className='empty-state'>No projects to show yet.</div>
       ) : (
         <ListProjectCards projects={projects} />
       )}
-
-      <button
-        style={{
-          padding: '0.5rem',
-          paddingLeft: '1.5rem',
-          paddingRight: '1.5rem',
-          marginTop: '1rem',
-        }}
-        onClick={() => navigate('/projects/create')}
-      >
-        Create a new project.
-      </button>
     </article>
   );
 };

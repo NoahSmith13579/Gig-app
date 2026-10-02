@@ -8,13 +8,22 @@ const Dashboard: React.FC = () => {
 
   const isNotReady = projLoad || !!projErr || projData === null;
   return (
-    <article className='flex grow block'>
-      <h1>Dashboard</h1>
-      <h4>Projects:</h4>
+    <article className='dashboard-page'>
+      <div className='page-heading'>
+        <div className='heading-copy'>
+          <h1>Dashboard</h1>
+          <p className='page-intro'>
+            A quick look at the projects you are tracking.
+          </p>
+        </div>
+      </div>
       {isNotReady ? (
         <span>Loading...</span>
       ) : (
-        <ProjectsList projects={projData} />
+        <section className='dashboard-projects'>
+          <h2 className='section-heading'>Your projects</h2>
+          <ProjectsList projects={projData} />
+        </section>
       )}
     </article>
   );

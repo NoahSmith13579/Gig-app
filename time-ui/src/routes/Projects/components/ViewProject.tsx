@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Spinner from '../../../components/Spinner';
 import { getProject } from '../../../services/projectService';
 import InfoBox from '../../../components/InfoBox';
@@ -17,7 +17,6 @@ import Handlers from '../../../handlers/ViewProjHandlers';
 import { StateContext } from '../../../contexts/StateContext';
 import ProjectState from '../../../entities/ProjectState';
 import DayTable from './DayTable';
-import { Link } from 'react-router-dom';
 import Project from '../../../entities/Project';
 
 interface ProjectParams {
@@ -30,7 +29,7 @@ const ViewProject: React.FC = () => {
   const loggedin = authState.authState.loggedIn;
   const isAnonymous = authState.authState.isAnonymous;
   const canViewProject = loggedin || isAnonymous;
-  let { state, dispatch } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext);
   const [dataError, setDataError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [initData, setInitData] = useState<Project | null>(null);
@@ -75,7 +74,6 @@ const ViewProject: React.FC = () => {
     }
   }, [initData]);
 
-  // Destructure state values
   const {
     project,
     showCost,
@@ -88,7 +86,6 @@ const ViewProject: React.FC = () => {
     data,
   } = state;
 
-  // Track project modifications - mark as modified when project contents change
   useEffect(() => {
     if (project && !hasBeenModified && data && project !== data) {
       dispatch({ type: 'set_modified', payload: { bool: true } });
@@ -101,15 +98,10 @@ const ViewProject: React.FC = () => {
   ]);
 
   const hasData = !loading && !!project;
-
-  // Allow editing if project exists and either:
-  // 1. User is the owner, OR
-  // 2. In anonymous/offline mode (assume ownership of all local projects)
   const isSameUser =
     project !== null &&
     (project.ownerid === authState.authState.userid ||
       (isAnonymous && project.ownerid === 'anonymous'));
-
   const pageSize = 10;
 
   const { handleConfirmDelete, handleSubmit, handleSetShowPopoutDelete } =
@@ -133,40 +125,60 @@ const ViewProject: React.FC = () => {
   ] = usePagination(!!project ? project.daysWorked : [], pageSize);
 
   return (
-    <article>
+    <article className='project-page'>
       {hasData && (
-        <>
-          <h1 className='mb-0'>{project.name}</h1>
-          <p className='subtitle p-0'>Owned by {project.owner}</p>
-        </>
+        <div className='page-heading project-page-heading'>
+          <div className='heading-copy'>
+            <Link to='/projects' className='back-link'>
+              Projects
+            </Link>
+            <h1 className='mb-0'>{project.name}</h1>
+            <p className='project-owner'>Owned by {project.owner}</p>
+            {project.description && (
+              <p className='page-intro'>{project.description}</p>
+            )}
+          </div>
+          <div className='project-actions'>
+            {hasBeenModified && isSameUser && (
+              <button onClick={handleSubmit} disabled={submitting}>
+                Save changes
+              </button>
+            )}
+            {isSameUser && (
+              <button
+                className='secondary-danger'
+                onClick={() => handleSetShowPopoutDelete(true)}
+              >
+                Delete project
+              </button>
+            )}
+          </div>
+        </div>
       )}
-      {loading ? (
-        <>
-          <h4>Getting Project Data</h4>
+      {loading && (
+        <div className='loading-state'>
+          <h4>Getting project data</h4>
           <Spinner />
-        </>
-      ) : project === null ? (
-        <h4>Data no here.</h4>
-      ) : (
-        <></>
+        </div>
+      )}
+      {!loading && project === null && !isLoading && (
+        <div className='empty-state'>
+          {dataError
+            ? 'Project data could not be loaded.'
+            : 'Project data could not be found.'}
+        </div>
       )}
       {canViewProject ? (
         <>
-          {isSameUser ? (
-            <></>
-          ) : (
-            <>
-              {' '}
-              <div>
-                {' '}
-                You are currently viewing a project that you do not own. To edit
-                this project, log in as the project creator.
-              </div>
-            </>
-          )}{' '}
+          {!isSameUser && hasData && (
+            <div className='notice'>
+              You are viewing a project that you do not own. Only its creator
+              can make changes.
+            </div>
+          )}
           {hasData && (
-            <article className='flex row grow' id='project-article'>
-              <section className='card col'>
+            <div className='project-layout' id='project-article'>
+              <section className='project-ledger'>
                 <DataTable
                   currentData={currentDataCosts}
                   currentPage={currentPageCosts}
@@ -187,19 +199,18 @@ const ViewProject: React.FC = () => {
                   isSameUser={isSameUser}
                   tableType={'revenue'}
                 />
+                <DayTable
+                  currentData={currentDataDaysWorked}
+                  currentPage={currentPageDaysWorked}
+                  pageCount={pageCountDaysWorked}
+                  goToPage={goToPageDaysWorked}
+                  pageSize={pageSize}
+                  showData={showDayWorked}
+                  isSameUser={isSameUser}
+                />
               </section>
-
-              <DayTable
-                currentData={currentDataDaysWorked}
-                currentPage={currentPageDaysWorked}
-                pageCount={pageCountDaysWorked}
-                goToPage={goToPageDaysWorked}
-                pageSize={pageSize}
-                showData={showDayWorked}
-                isSameUser={isSameUser}
-              />
               <InfoBox project={project} />
-            </article>
+            </div>
           )}
           {showDeletePopout && (
             <PopOut
@@ -210,25 +221,10 @@ const ViewProject: React.FC = () => {
               onConfirmDelete={handleConfirmDelete}
             />
           )}
-          {hasBeenModified && isSameUser && (
-            <button onClick={handleSubmit} disabled={submitting}>
-              Submit Changes
-            </button>
-          )}
-          {isSameUser && (
-            <button
-              onClick={() => handleSetShowPopoutDelete(true)}
-              style={{ background: 'red', margin: 10 }}
-            >
-              Delete Project
-            </button>
-          )}
         </>
       ) : (
-        <div>To view or modify a project, please log in.</div>
+        <div className='notice'>To view or modify a project, please log in.</div>
       )}
-
-      <Link to='/projects'>Back to Projects</Link>
     </article>
   );
 };

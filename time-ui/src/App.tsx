@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Routes from './Routes';
 import { AuthProvider } from './contexts/AuthContext';
 import { StateProvider } from './contexts/StateContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
-import './App.css';
 import Spinner from './components/Spinner';
 
 const App: React.FC = () => {
@@ -27,11 +27,13 @@ const App: React.FC = () => {
       <Spinner />
     </div>
   ) : (
-    <AuthProvider>
-      <StateProvider>
-        <Routes />
-      </StateProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <StateProvider>
+          <Routes />
+        </StateProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

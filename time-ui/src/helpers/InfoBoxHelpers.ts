@@ -58,9 +58,13 @@ const calcReturnOnInvestment = (costs: Cost[], revenues: Revenue[]): number => {
 };
 
 const conditionalFormattingIB = (func: number): string => {
-  const conditon = func >= 1 ? 'green' : 'red';
-
-  return conditon;
+  if (func > 0) {
+    return 'green';
+  }
+  if (func < 0) {
+    return 'red';
+  }
+  return '';
 };
 
 export {

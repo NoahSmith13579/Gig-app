@@ -27,8 +27,9 @@ const InfoBox: React.FC<InfoBoxProps> = ({
   const ROI = calcReturnOnInvestment(costs, revenues);
 
   return (
-    <section className='card ml-auto'>
-      <ul className='no-list-style'>
+    <section className='card project-summary'>
+      <h2 className='summary-title'>Project overview</h2>
+      <ul className='project-summary-list'>
         <li>
           Total Revenue: ${' '}
           <span className={conditionalFormattingIB(totalRevenue)}>
@@ -48,8 +49,11 @@ const InfoBox: React.FC<InfoBoxProps> = ({
           </span>
         </li>
         <li>
-          Total Time Worked: {totalTimeWorked}{' '}
+          Total Time Worked: <span>
+            {totalTimeWorked}{' '}
           {ProfitPerHour === 1 ? 'hour' : 'hours'}
+          </span>
+
         </li>
         <li>
           {' '}
@@ -59,7 +63,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({
           </span>
         </li>
         <li>
-          ROI: <span className={conditionalFormattingIB(ROI)}>{ROI}</span> %
+          ROI: <span className={conditionalFormattingIB(ROI)}>{ROI}%</span>
         </li>
         {description?.length !== 0 && (
           <li>
