@@ -11,7 +11,7 @@ const LogoutButton: React.FC = () => {
   };
 
   return (
-    <button onClick={handleLogout} style={{ color: 'black' }}>
+    <button className='account-button' onClick={handleLogout}>
       Sign Out
     </button>
   );

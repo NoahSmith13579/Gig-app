@@ -12,7 +12,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({ projects }) => {
     authState: { userid },
   } = useContext(AuthContext);
   return (
-    <article className='card'>
+    <article className='card table-card'>
       <table>
         <thead>
           <tr>

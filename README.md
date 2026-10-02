@@ -6,6 +6,9 @@ This app is written using the MERN stack and Typescript.
 
 This purpose of this app is to give the user a simple and easy to use way to track both revenue and costs for various hobbies or "side-gigs".
 
+The interface supports light and dark themes. Use the toggle in the navigation
+bar to switch themes; the selection is saved in the browser.
+
 ## Page by Page Breakdown
 
 This section will describe each page. All pages but the about page require a google login to access

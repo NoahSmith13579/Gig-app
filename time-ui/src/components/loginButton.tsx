@@ -5,7 +5,7 @@ const LoginButton: React.FC = () => {
   const { login } = useAuth();
 
   return (
-    <button onClick={() => login()} style={{ color: 'black' }}>
+    <button className='account-button' onClick={() => login()}>
       Log-in
     </button>
   );
