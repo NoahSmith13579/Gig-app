@@ -4,8 +4,8 @@
  *
  */
 const dateFormatter = (date: Date) => {
-    const month = date.getMonth();
-    const day = date.getDate();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
     const year = date.getFullYear();
 
     return `${year}-${month}-${day}`;
@@ -30,7 +30,7 @@ const addSeconds = (startDate: Date, timeWorked: number) => {
  *  Converts amount of time into hours to nearest decimal
  */
 const secondsToHours = (sec: number) => {
-    return parseFloat(Math.round(sec / 3600).toFixed(1));
+    return parseFloat((sec / 3600).toFixed(1));
 };
 
 export { dateFormatter, addSeconds, secondsToHours };
