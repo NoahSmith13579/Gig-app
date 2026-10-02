@@ -168,43 +168,29 @@ const projectReducer: Reducer<ProjectState, Action> = (
       deleteProject(state.project!)
         .then(() => {
           toast.success('Deleted Project', { toastId: 'deleteProjectSuccess' });
+          // Redirect after successful deletion
+          setTimeout(() => {
+            window.location.href = deleteRedirectLocation;
+          }, 500);
         })
-        .catch((err) =>
-          toast.error('Cannot delete project - ' + err, {
+        .catch((err) => {
+          toast.error('Cannot delete project - ' + (err instanceof Error ? err.message : String(err)), {
             toastId: 'deleteProjectError',
-          })
-        )
-        .finally(() => {
-          window.location.href = deleteRedirectLocation;
-          return { ...state, showDeletePopout: false };
+          });
         });
-      //window.location.href = deleteRedirectLocation;
       return { ...state, showDeletePopout: false };
     }
     case 'submit': {
-      //state.submitting = true;
-      let newProject: Project;
       updateProject(state.project!)
         .then((resp) => {
-          newProject = resp;
           toast.success('Updated project!', { toastId: 'updateProject' });
         })
         .catch((err) =>
           toast.error('Cannot update project - ' + err, {
             toastId: 'updateProjectError',
           })
-        )
-        .finally(() => {
-          state.submitting = false;
-          state.hasBeenModified = false;
-          return {
-            ...state,
-            project: newProject,
-            submitting: false,
-            hasBeenModified: false,
-          };
-        });
-      return { ...state, submitting: false, hasBeenModified: false };
+        );
+      return { ...state, hasBeenModified: false, data: state.project };
     }
     case 'set_project': {
       return { ...state, project: action.payload.data };

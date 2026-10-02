@@ -68,3 +68,28 @@ The data presented include:
 
 This app makes use of cors, jsonwebtoken, and express.  
 It makes use of a basic REST API to handle requests from the front-end. There is also an error handler middleware.
+
+## Testing
+
+The frontend has behavior-focused Jest tests for date and time calculations,
+validation rules, and anonymous project storage. These tests avoid depending on
+the current UI markup or styling, so they can continue to protect app behavior
+as the UI is redesigned.
+
+Run the frontend tests from `time-ui` with:
+
+```sh
+npm test -- --watchAll=false
+```
+
+The deployment workflow runs the tests before building and deploying.
+
+The backend API has isolated HTTP tests using an in-memory database stub. Run
+them from `time-api` with:
+
+```sh
+npm test
+```
+
+The deployment workflow runs these backend tests before building and deploying
+the frontend as well.

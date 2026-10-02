@@ -2,10 +2,16 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 
 const LogoutButton: React.FC = () => {
-  const { logout } = useContext(AuthContext);
+  const { logout, authState } = useContext(AuthContext);
+  const isAnonymous = authState.isAnonymous;
+
+  const handleLogout = () => {
+    // If user is in anonymous mode, clear the local storage projects
+    logout(isAnonymous);
+  };
 
   return (
-    <button onClick={() => logout()} style={{ color: 'black' }}>
+    <button onClick={handleLogout} style={{ color: 'black' }}>
       Sign Out
     </button>
   );

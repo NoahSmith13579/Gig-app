@@ -48,7 +48,7 @@ const withinCharLimit: ValidationRule<string> = (value: string) => {
     const charLim = 50;
     const valueCharlength = value.length;
 
-    if (valueCharlength >= charLim) {
+    if (valueCharlength > charLim) {
       return 'Notes must be 50 characters or less';
     }
 

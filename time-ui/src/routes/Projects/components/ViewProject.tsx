@@ -28,6 +28,8 @@ const ViewProject: React.FC = () => {
   const { projectId } = useParams<keyof ProjectParams>() as ProjectParams;
   const authState = useAuth();
   const loggedin = authState.authState.loggedIn;
+  const isAnonymous = authState.authState.isAnonymous;
+  const canViewProject = loggedin || isAnonymous;
   let { state, dispatch } = useContext(StateContext);
   const [dataError, setDataError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,8 +47,7 @@ const ViewProject: React.FC = () => {
         .finally(() => setIsLoading(false));
     }
     getInitialData();
-    return () => {};
-  }, []);
+  }, [projectId]);
 
   useEffect(() => {
     if (initData !== null) {
@@ -64,7 +65,7 @@ const ViewProject: React.FC = () => {
         hasBeenModified: false,
         submitting: false,
         dataError: dataError,
-        loading: isLoading,
+        loading: false,
         data: initData,
       } as ProjectState;
       dispatch({
@@ -72,13 +73,9 @@ const ViewProject: React.FC = () => {
         payload: { onLoadState: initialState },
       });
     }
-    return () => {};
-  }, [initData, isLoading]);
+  }, [initData]);
 
-  useEffect(() => {
-    console.log('State: ', state);
-  }, [state]);
-
+  // Destructure state values
   const {
     project,
     showCost,
@@ -91,43 +88,49 @@ const ViewProject: React.FC = () => {
     data,
   } = state;
 
-  const pageSize = 10;
-  React.useEffect(() => {
-    dispatch({ type: 'set_project', payload: { data: data } });
-    return () => {};
-  }, [state.data]);
-
-  React.useEffect(() => {
-    if (!loading && project !== data && hasBeenModified !== true) {
+  // Track project modifications - mark as modified when project contents change
+  useEffect(() => {
+    if (project && !hasBeenModified && data && project !== data) {
       dispatch({ type: 'set_modified', payload: { bool: true } });
     }
-    return () => {};
-  }, [state.project]);
+  }, [
+    project?.profit?.costs?.length,
+    project?.profit?.revenues?.length,
+    project?.daysWorked?.length,
+    hasBeenModified,
+  ]);
 
   const hasData = !loading && !!project;
 
+  // Allow editing if project exists and either:
+  // 1. User is the owner, OR
+  // 2. In anonymous/offline mode (assume ownership of all local projects)
   const isSameUser =
-    project !== null && project.ownerid === authState.authState.userid;
+    project !== null &&
+    (project.ownerid === authState.authState.userid ||
+      (isAnonymous && project.ownerid === 'anonymous'));
+
+  const pageSize = 10;
 
   const { handleConfirmDelete, handleSubmit, handleSetShowPopoutDelete } =
     Handlers();
 
   const [currentPageCosts, currentDataCosts, pageCountCosts, goToPageCosts] =
-    usePagination(!!project ? project.profit.costs : [], 10);
+    usePagination(!!project ? project.profit.costs : [], pageSize);
 
   const [
     currentPageRevenues,
     currentDataRevenues,
     pageCountRevenues,
     goToPageRevenues,
-  ] = usePagination(!!project ? project.profit.revenues : [], 10);
+  ] = usePagination(!!project ? project.profit.revenues : [], pageSize);
 
   const [
     currentPageDaysWorked,
     currentDataDaysWorked,
     pageCountDaysWorked,
     goToPageDaysWorked,
-  ] = usePagination(!!project ? project.daysWorked : [], 10);
+  ] = usePagination(!!project ? project.daysWorked : [], pageSize);
 
   return (
     <article>
@@ -147,7 +150,7 @@ const ViewProject: React.FC = () => {
       ) : (
         <></>
       )}
-      {loggedin ? (
+      {canViewProject ? (
         <>
           {isSameUser ? (
             <></>
